@@ -1,0 +1,41 @@
+object Form1: TForm1
+  Left = 256
+  Height = 240
+  Top = 145
+  Width = 674
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 674
+  LCLVersion = '2.0.6.0'
+  object SpinEditGryf: TSpinEdit
+    Left = 48
+    Height = 97
+    Top = 40
+    Width = 150
+    Font.Height = -67
+    MaxValue = 200
+    MinValue = 75
+    OnChange = SpinEditGryfChange
+    ParentFont = False
+    TabOrder = 0
+    Value = 75
+  end
+  object SpinEditGilza: TSpinEdit
+    Left = 272
+    Height = 97
+    Top = 40
+    Width = 150
+    Font.Height = -67
+    ParentFont = False
+    TabOrder = 1
+  end
+  object SpinEditFolia: TSpinEdit
+    Left = 472
+    Height = 97
+    Top = 37
+    Width = 150
+    Font.Height = -67
+    ParentFont = False
+    TabOrder = 2
+  end
+end
