@@ -1,10 +1,10 @@
 object Form1: TForm1
-  Left = 256
-  Height = 240
-  Top = 145
+  Left = 220
+  Height = 325
+  Top = 113
   Width = 768
   Caption = 'Form1'
-  ClientHeight = 240
+  ClientHeight = 325
   ClientWidth = 768
   LCLVersion = '2.0.6.0'
   object SpinEditGryf: TSpinEdit
@@ -28,6 +28,7 @@ object Form1: TForm1
     Font.Height = -67
     MaxValue = 50
     MinValue = 5
+    OnChange = SpinEditGilzaChange
     ParentFont = False
     TabOrder = 1
     Value = 5
@@ -40,6 +41,7 @@ object Form1: TForm1
     Font.Height = -67
     MaxValue = 1000
     MinValue = 5
+    OnChange = SpinEditFoliaChange
     ParentFont = False
     TabOrder = 2
     Value = 5
@@ -67,5 +69,46 @@ object Form1: TForm1
     Width = 120
     Caption = 'tu mierząc '#13#10'od gryfu '#13#10'do brzegu rolki'#13#10'bez odejmowania gilzy'
     ParentColor = False
+  end
+  object LabelKoniec: TLabel
+    Left = 312
+    Height = 45
+    Top = 216
+    Width = 51
+    Caption = '158'
+    Font.Height = -32
+    ParentColor = False
+    ParentFont = False
+  end
+  object LabelPoczatek: TLabel
+    Left = 312
+    Height = 45
+    Top = 272
+    Width = 51
+    Caption = '168'
+    Font.Height = -32
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 24
+    Height = 32
+    Top = 229
+    Width = 192
+    Caption = 'Średnica końcowa'
+    Font.Height = -24
+    ParentColor = False
+    ParentFont = False
+    OnChangeBounds = licz
+  end
+  object Label7: TLabel
+    Left = 24
+    Height = 32
+    Top = 285
+    Width = 223
+    Caption = 'Średnica początkowa'
+    Font.Height = -24
+    ParentColor = False
+    ParentFont = False
   end
 end

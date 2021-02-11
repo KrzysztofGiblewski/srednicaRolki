@@ -1,16 +1,16 @@
 object Form1: TForm1
-  Left = 256
-  Height = 240
-  Top = 145
-  Width = 674
+  Left = 220
+  Height = 325
+  Top = 113
+  Width = 768
   Caption = 'Form1'
-  ClientHeight = 240
-  ClientWidth = 674
+  ClientHeight = 325
+  ClientWidth = 768
   LCLVersion = '2.0.6.0'
   object SpinEditGryf: TSpinEdit
-    Left = 48
+    Left = 40
     Height = 97
-    Top = 40
+    Top = 80
     Width = 150
     Font.Height = -67
     MaxValue = 200
@@ -18,24 +18,97 @@ object Form1: TForm1
     OnChange = SpinEditGryfChange
     ParentFont = False
     TabOrder = 0
-    Value = 75
+    Value = 148
   end
   object SpinEditGilza: TSpinEdit
-    Left = 272
+    Left = 264
     Height = 97
-    Top = 40
+    Top = 80
     Width = 150
     Font.Height = -67
+    MaxValue = 50
+    MinValue = 5
+    OnChange = SpinEditGilzaChange
     ParentFont = False
     TabOrder = 1
+    Value = 5
   end
   object SpinEditFolia: TSpinEdit
-    Left = 472
+    Left = 528
     Height = 97
-    Top = 37
+    Top = 80
     Width = 150
     Font.Height = -67
+    MaxValue = 1000
+    MinValue = 5
+    OnChange = SpinEditFoliaChange
     ParentFont = False
     TabOrder = 2
+    Value = 5
+  end
+  object Label1: TLabel
+    Left = 40
+    Height = 45
+    Top = 16
+    Width = 120
+    Caption = 'tu średnica gryfu'#13#10'-mały gryf ma 75 mm'#13#10'-duży gryf ma 148 mm'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 264
+    Height = 60
+    Top = 16
+    Width = 203
+    Caption = 'tu mierząc od gryfu'#13#10'-dla cienkiej gilzy najczęściej 15 mm'#13#10'-dla grubej gilzy najczęściej 17 mm'#13#10'-lub dokładnie tyle ile pokazuje miarka'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 528
+    Height = 60
+    Top = 16
+    Width = 120
+    Caption = 'tu mierząc '#13#10'od gryfu '#13#10'do brzegu rolki'#13#10'bez odejmowania gilzy'
+    ParentColor = False
+  end
+  object LabelKoniec: TLabel
+    Left = 312
+    Height = 45
+    Top = 216
+    Width = 51
+    Caption = '158'
+    Font.Height = -32
+    ParentColor = False
+    ParentFont = False
+  end
+  object LabelPoczatek: TLabel
+    Left = 312
+    Height = 45
+    Top = 272
+    Width = 51
+    Caption = '168'
+    Font.Height = -32
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 24
+    Height = 32
+    Top = 229
+    Width = 192
+    Caption = 'Średnica końcowa'
+    Font.Height = -24
+    ParentColor = False
+    ParentFont = False
+    OnChangeBounds = licz
+  end
+  object Label7: TLabel
+    Left = 24
+    Height = 32
+    Top = 285
+    Width = 223
+    Caption = 'Średnica początkowa'
+    Font.Height = -24
+    ParentColor = False
+    ParentFont = False
   end
 end
