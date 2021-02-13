@@ -5,16 +5,22 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin,
+  ExtCtrls;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    Bevel1: TBevel;
+    folia: TShape;
+    gilza: TShape;
+    gryf: TShape;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    Label4: TLabel;
     LabelKoniec: TLabel;
     LabelPoczatek: TLabel;
     Label6: TLabel;
@@ -22,10 +28,9 @@ type
     SpinEditGryf: TSpinEdit;
     SpinEditGilza: TSpinEdit;
     SpinEditFolia: TSpinEdit;
-    procedure licz(Sender: TObject);
+       procedure licz(Sender: TObject);
     procedure SpinEditFoliaChange(Sender: TObject);
-    procedure SpinEditGilzaChange(Sender: TObject);
-    procedure SpinEditGryfChange(Sender: TObject);
+
   private
 
   public
@@ -34,7 +39,7 @@ type
 
 var
   Form1: TForm1;
-   srednicakoniec ,srednicapoczatek : integer ;
+   srednicakoniec ,srednicapoczatek, x, y, z : integer ;
 
 
 implementation
@@ -54,27 +59,50 @@ procedure TForm1.licz(Sender: TObject);
      labelPoczatek.Caption :=srednicapoczatek.ToString;
 end;
 
+
+
+
 procedure TForm1.SpinEditFoliaChange(Sender: TObject);
-   begin
+  var gryfrozmiar, gilzarozmiar, foliarozmiar :integer;
+  begin
+     srednicakoniec        :=spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
+     srednicapoczatek      :=spineditgryf.Value+(spineditgilza.Value*2);
+     labelKoniec.Caption   :=srednicakoniec.ToString;
+     labelPoczatek.Caption :=srednicapoczatek.ToString;
+   // rozmiar
+     gryfrozmiar  :=spineditgryf.Value;
+     gilzarozmiar :=spineditgryf.Value+(spineditgilza.Value*2);  //czyli grubosc gryfu plus dwie scianki gilzy
+     foliarozmiar :=spineditgryf.Value+(spineditfolia.Value*2);  // bo mierze od gryfu a nie od gilzy
 
-      licz;
+     gryf.Height   :=gryfrozmiar;
+     gryf.Width    :=gryfrozmiar;
+     gilza.Height  :=gilzarozmiar;
+     gilza.Width   :=gilzarozmiar;
+     folia.Height  :=foliarozmiar;
+     folia.Width   :=foliarozmiar;
+   // srodek
+     gryf.Top:=round((form1.Height*0.7)-gryfrozmiar*0.5);
+     gryf.Left:=round((form1.Width*0.5)-gryfrozmiar*0.5);
+     gilza.Top:=round((form1.Height*0.7)-gilzarozmiar*0.5);
+     gilza.Left:=round((form1.Width*0.5)-gilzarozmiar*0.5);
+     folia.Top:=round((form1.Height*0.7)-foliarozmiar*0.5);
+     folia.Left:=round((form1.Width*0.5)-foliarozmiar*0.5);
+
+
 
 end;
 
-procedure TForm1.SpinEditGilzaChange(Sender: TObject);
- var  srednicakoniec : integer ;
-   begin
 
-      srednicakoniec :=  spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
 
-end;
 
-procedure TForm1.SpinEditGryfChange(Sender: TObject);
- var  srednicakoniec : integer ;
-   begin
 
-      srednicakoniec :=  spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
+
+procedure Kolo(shapeBox:TCanvas; x,y,r:integer);
+var d:integer;
+begin
+shapeBox.MoveTo(x, y+r);
+for d:=0 to 360 do
+  shapeBox.LineTo(round(x+sin(d*PI/180)*r), round(y+cos(d*PI/180)*r));
 end;
 
 end.
-
