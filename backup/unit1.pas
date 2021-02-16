@@ -14,13 +14,24 @@ type
 
   TForm1 = class(TForm)
     Bevel1: TBevel;
+    Button1: TButton;
+    ButtonNr3: TButton;
+    ButtonNr0: TButton;
+    ButtonNr7: TButton;
+    ButtonNr8: TButton;
+    ButtonNr9: TButton;
+    ButtonNr4: TButton;
+    ButtonNr5: TButton;
+    ButtonNr6: TButton;
+    ButtonNr1: TButton;
+    ButtonNr2: TButton;
     folia: TShape;
     gilza: TShape;
     gryf: TShape;
+    Image1: TImage;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    Label4: TLabel;
     LabelKoniec: TLabel;
     LabelPoczatek: TLabel;
     Label6: TLabel;
@@ -28,6 +39,7 @@ type
     SpinEditGryf: TSpinEdit;
     SpinEditGilza: TSpinEdit;
     SpinEditFolia: TSpinEdit;
+       procedure Button1Click(Sender: TObject);
        procedure licz(Sender: TObject);
     procedure SpinEditFoliaChange(Sender: TObject);
 
@@ -53,10 +65,15 @@ procedure TForm1.licz(Sender: TObject);
 
   begin
 
-     srednicakoniec :=  spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
+     srednicakoniec :=  spineditgryf.Value+(spineditfolia.Value*2);
      srednicapoczatek :=spineditgryf.Value+(spineditgilza.Value*2);
      labelKoniec.Caption := srednicakoniec.ToString;
      labelPoczatek.Caption :=srednicapoczatek.ToString;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  application.Terminate;
 end;
 
 
@@ -65,7 +82,7 @@ end;
 procedure TForm1.SpinEditFoliaChange(Sender: TObject);
   var gryfrozmiar, gilzarozmiar, foliarozmiar :integer;
   begin
-     srednicakoniec        :=spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
+     srednicakoniec        :=spineditgryf.Value+(spineditfolia.Value*2);
      srednicapoczatek      :=spineditgryf.Value+(spineditgilza.Value*2);
      labelKoniec.Caption   :=srednicakoniec.ToString;
      labelPoczatek.Caption :=srednicapoczatek.ToString;
@@ -81,12 +98,12 @@ procedure TForm1.SpinEditFoliaChange(Sender: TObject);
      folia.Height  :=foliarozmiar;
      folia.Width   :=foliarozmiar;
    // srodek
-     gryf.Top:=round((form1.Height*0.7)-gryfrozmiar*0.5);
-     gryf.Left:=round((form1.Width*0.5)-gryfrozmiar*0.5);
-     gilza.Top:=round((form1.Height*0.7)-gilzarozmiar*0.5);
-     gilza.Left:=round((form1.Width*0.5)-gilzarozmiar*0.5);
-     folia.Top:=round((form1.Height*0.7)-foliarozmiar*0.5);
-     folia.Left:=round((form1.Width*0.5)-foliarozmiar*0.5);
+     gryf.Top:=round((form1.Height*0.6)-gryfrozmiar*0.5);
+     gryf.Left:=round((form1.Width*0.7)-gryfrozmiar*0.5);
+     gilza.Top:=round((form1.Height*0.6)-gilzarozmiar*0.5);
+     gilza.Left:=round((form1.Width*0.7)-gilzarozmiar*0.5);
+     folia.Top:=round((form1.Height*0.6)-foliarozmiar*0.5);
+     folia.Left:=round((form1.Width*0.7)-foliarozmiar*0.5);
 
 
 

@@ -8,7 +8,7 @@ object Form1: TForm1
   ClientWidth = 800
   Color = clWhite
   OnCreate = SpinEditFoliaChange
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '1.8.4.0'
   object Image1: TImage
     Left = -96
     Height = 248
@@ -2477,7 +2477,7 @@ object Form1: TForm1
     Width = 120
     BorderSpacing.Around = 30
     Caption = 'tu mierząc '#13#10'od gryfu '#13#10'do brzegu rolki'#13#10'bez odejmowania gilzy'
-    Font.Color = clGray
+    Font.Color = clSilver
     ParentColor = False
     ParentFont = False
   end

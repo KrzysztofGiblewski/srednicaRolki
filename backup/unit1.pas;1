@@ -65,7 +65,7 @@ procedure TForm1.licz(Sender: TObject);
 
   begin
 
-     srednicakoniec :=  spineditgryf.Value+(spineditfolia.Value*2);
+     srednicakoniec :=  spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
      srednicapoczatek :=spineditgryf.Value+(spineditgilza.Value*2);
      labelKoniec.Caption := srednicakoniec.ToString;
      labelPoczatek.Caption :=srednicapoczatek.ToString;
@@ -82,7 +82,7 @@ end;
 procedure TForm1.SpinEditFoliaChange(Sender: TObject);
   var gryfrozmiar, gilzarozmiar, foliarozmiar :integer;
   begin
-     srednicakoniec        :=spineditgryf.Value+(spineditfolia.Value*2);
+     srednicakoniec        :=spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
      srednicapoczatek      :=spineditgryf.Value+(spineditgilza.Value*2);
      labelKoniec.Caption   :=srednicakoniec.ToString;
      labelPoczatek.Caption :=srednicapoczatek.ToString;

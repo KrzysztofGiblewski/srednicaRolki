@@ -1,19 +1,19 @@
 object Form1: TForm1
-  Left = 448
+  Left = 467
   Height = 749
-  Top = 5
+  Top = 77
   Width = 800
   Caption = 'PrzeliczPromień'
   ClientHeight = 749
   ClientWidth = 800
   Color = clWhite
   OnCreate = SpinEditFoliaChange
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '1.8.4.0'
   object Image1: TImage
-    Left = -96
-    Height = 248
-    Top = 440
-    Width = 610
+    Left = -88
+    Height = 384
+    Top = 168
+    Width = 674
     Picture.Data = {
       1754506F727461626C654E6574776F726B47726170686963FA27010089504E47
       0D0A1A0A0000000D49484452000002A80000017C080600000003FF49F8000020
@@ -2391,7 +2391,7 @@ object Form1: TForm1
     Height = 238
     Top = 340
     Width = 257
-    Brush.Color = clSilver
+    Brush.Color = clGray
     Shape = stCircle
   end
   object SpinEditGryf: TSpinEdit
@@ -2402,7 +2402,7 @@ object Form1: TForm1
     Width = 136
     BorderSpacing.Around = 50
     BorderSpacing.CellAlignHorizontal = ccaLeftTop
-    Color = clGray
+    Color = clSilver
     Font.Color = clBlack
     Font.Height = -67
     MaxValue = 200
@@ -2438,7 +2438,7 @@ object Form1: TForm1
     Width = 264
     BorderSpacing.Around = 50
     BorderSpacing.CellAlignHorizontal = ccaLeftTop
-    Color = clSilver
+    Color = clGray
     Font.Color = clBlack
     Font.Height = -67
     MaxValue = 1000
@@ -2477,7 +2477,7 @@ object Form1: TForm1
     Width = 120
     BorderSpacing.Around = 30
     Caption = 'tu mierząc '#13#10'od gryfu '#13#10'do brzegu rolki'#13#10'bez odejmowania gilzy'
-    Font.Color = clGray
+    Font.Color = clRed
     ParentColor = False
     ParentFont = False
   end
@@ -2496,7 +2496,7 @@ object Form1: TForm1
     Height = 88
     Top = 370
     Width = 90
-    Brush.Color = clGray
+    Brush.Color = clSilver
     Shape = stCircle
   end
   object Label6: TLabel

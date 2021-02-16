@@ -65,7 +65,7 @@ procedure TForm1.licz(Sender: TObject);
 
   begin
 
-     srednicakoniec :=  spineditgryf.Value+(spineditfolia.Value*2);
+     srednicakoniec :=  spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
      srednicapoczatek :=spineditgryf.Value+(spineditgilza.Value*2);
      labelKoniec.Caption := srednicakoniec.ToString;
      labelPoczatek.Caption :=srednicapoczatek.ToString;
@@ -82,7 +82,7 @@ end;
 procedure TForm1.SpinEditFoliaChange(Sender: TObject);
   var gryfrozmiar, gilzarozmiar, foliarozmiar :integer;
   begin
-     srednicakoniec        :=spineditgryf.Value+(spineditfolia.Value*2);
+     srednicakoniec        :=spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
      srednicapoczatek      :=spineditgryf.Value+(spineditgilza.Value*2);
      labelKoniec.Caption   :=srednicakoniec.ToString;
      labelPoczatek.Caption :=srednicapoczatek.ToString;
@@ -98,12 +98,12 @@ procedure TForm1.SpinEditFoliaChange(Sender: TObject);
      folia.Height  :=foliarozmiar;
      folia.Width   :=foliarozmiar;
    // srodek
-     gryf.Top:=round((form1.Height*0.6)-gryfrozmiar*0.5);
-     gryf.Left:=round((form1.Width*0.7)-gryfrozmiar*0.5);
-     gilza.Top:=round((form1.Height*0.6)-gilzarozmiar*0.5);
-     gilza.Left:=round((form1.Width*0.7)-gilzarozmiar*0.5);
-     folia.Top:=round((form1.Height*0.6)-foliarozmiar*0.5);
-     folia.Left:=round((form1.Width*0.7)-foliarozmiar*0.5);
+     gryf.Top:=round((form1.Height*0.7)-gryfrozmiar*0.5);
+     gryf.Left:=round((form1.Width*0.5)-gryfrozmiar*0.5);
+     gilza.Top:=round((form1.Height*0.7)-gilzarozmiar*0.5);
+     gilza.Left:=round((form1.Width*0.5)-gilzarozmiar*0.5);
+     folia.Top:=round((form1.Height*0.7)-foliarozmiar*0.5);
+     folia.Left:=round((form1.Width*0.5)-foliarozmiar*0.5);
 
 
 
