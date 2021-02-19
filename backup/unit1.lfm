@@ -2393,12 +2393,13 @@ object Form1: TForm1
     Width = 257
     Brush.Color = clSilver
     Shape = stCircle
+    Visible = False
   end
   object SpinEditGryf: TSpinEdit
-    Left = 40
+    Left = 25
     Height = 97
     Hint = 'w zasadzie u nas tylko cienki gryf 75 mm i grubszy 148 mm'
-    Top = 80
+    Top = 349
     Width = 136
     BorderSpacing.Around = 50
     BorderSpacing.CellAlignHorizontal = ccaLeftTop
@@ -2415,9 +2416,9 @@ object Form1: TForm1
     Value = 148
   end
   object SpinEditGilza: TSpinEdit
-    Left = 216
+    Left = 201
     Height = 97
-    Top = 80
+    Top = 349
     Width = 118
     BorderSpacing.Around = 50
     BorderSpacing.CellAlignHorizontal = ccaLeftTop
@@ -2432,9 +2433,9 @@ object Form1: TForm1
     Value = 15
   end
   object SpinEditFolia: TSpinEdit
-    Left = 488
+    Left = 473
     Height = 97
-    Top = 80
+    Top = 349
     Width = 264
     BorderSpacing.Around = 50
     BorderSpacing.CellAlignHorizontal = ccaLeftTop
@@ -2449,9 +2450,9 @@ object Form1: TForm1
     Value = 100
   end
   object Label1: TLabel
-    Left = 40
+    Left = 25
     Height = 45
-    Top = 16
+    Top = 285
     Width = 120
     BorderSpacing.Around = 30
     Caption = 'tu średnica gryfu'#13#10'-mały gryf ma 75 mm'#13#10'-duży gryf ma 148 mm'
@@ -2460,9 +2461,9 @@ object Form1: TForm1
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 216
+    Left = 201
     Height = 60
-    Top = 16
+    Top = 285
     Width = 203
     BorderSpacing.Around = 30
     Caption = 'tu mierząc od gryfu'#13#10'-dla cienkiej gilzy najczęściej 15 mm'#13#10'-dla grubej gilzy najczęściej 17 mm'#13#10'-lub dokładnie tyle ile pokazuje miarka'
@@ -2471,13 +2472,13 @@ object Form1: TForm1
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 488
+    Left = 473
     Height = 60
-    Top = 16
+    Top = 285
     Width = 120
     BorderSpacing.Around = 30
     Caption = 'tu mierząc '#13#10'od gryfu '#13#10'do brzegu rolki'#13#10'bez odejmowania gilzy'
-    Font.Color = clSilver
+    Font.Color = clGray
     ParentColor = False
     ParentFont = False
   end
@@ -2490,6 +2491,7 @@ object Form1: TForm1
     Pen.Color = clMaroon
     Pen.Width = 3
     Shape = stCircle
+    Visible = False
   end
   object gryf: TShape
     Left = 90
@@ -2498,23 +2500,23 @@ object Form1: TForm1
     Width = 90
     Brush.Color = clGray
     Shape = stCircle
+    Visible = False
   end
   object Label6: TLabel
-    Left = 144
+    Left = 129
     Height = 32
-    Top = 280
+    Top = 549
     Width = 337
     Caption = 'Początkowa średnica manualnie'
     Font.Color = clRed
     Font.Height = -24
     ParentColor = False
     ParentFont = False
-    OnChangeBounds = licz
   end
   object Label7: TLabel
-    Left = 144
+    Left = 129
     Height = 32
-    Top = 208
+    Top = 477
     Width = 353
     Caption = 'Średnica tulei /Średnica końcowa'
     Font.Color = clGreen
@@ -2523,9 +2525,9 @@ object Form1: TForm1
     ParentFont = False
   end
   object LabelPoczatek: TLabel
-    Left = 35
+    Left = 20
     Height = 71
-    Top = 184
+    Top = 453
     Width = 87
     Caption = '168'
     Font.Color = clGreen
@@ -2534,9 +2536,9 @@ object Form1: TForm1
     ParentFont = False
   end
   object LabelKoniec: TLabel
-    Left = 35
+    Left = 20
     Height = 71
-    Top = 256
+    Top = 525
     Width = 87
     Caption = '378'
     Font.Color = clRed

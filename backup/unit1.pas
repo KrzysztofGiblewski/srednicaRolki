@@ -40,8 +40,7 @@ type
     SpinEditGilza: TSpinEdit;
     SpinEditFolia: TSpinEdit;
        procedure Button1Click(Sender: TObject);
-       procedure licz(Sender: TObject);
-    procedure SpinEditFoliaChange(Sender: TObject);
+       procedure SpinEditFoliaChange(Sender: TObject);
 
   private
 
@@ -51,7 +50,6 @@ type
 
 var
   Form1: TForm1;
-   srednicakoniec ,srednicapoczatek, x, y, z : integer ;
 
 
 implementation
@@ -61,15 +59,6 @@ implementation
 { TForm1 }
 
 
-procedure TForm1.licz(Sender: TObject);
-
-  begin
-
-     srednicakoniec :=  spineditgryf.Value+(spineditfolia.Value*2);
-     srednicapoczatek :=spineditgryf.Value+(spineditgilza.Value*2);
-     labelKoniec.Caption := srednicakoniec.ToString;
-     labelPoczatek.Caption :=srednicapoczatek.ToString;
-end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
@@ -80,7 +69,7 @@ end;
 
 
 procedure TForm1.SpinEditFoliaChange(Sender: TObject);
-  var gryfrozmiar, gilzarozmiar, foliarozmiar :integer;
+  var srednicakoniec,srednicapoczatek,gryfrozmiar, gilzarozmiar, foliarozmiar,brzegfoli,brzeggilzy,brzeggryfu,xgryf,ygryf,xgilza,ygilza,xfolia,yfolia ,srodek,przesuniecie:integer;
   begin
      srednicakoniec        :=spineditgryf.Value+(spineditfolia.Value*2);
      srednicapoczatek      :=spineditgryf.Value+(spineditgilza.Value*2);
@@ -98,12 +87,64 @@ procedure TForm1.SpinEditFoliaChange(Sender: TObject);
      folia.Height  :=foliarozmiar;
      folia.Width   :=foliarozmiar;
    // srodek
-     gryf.Top:=round((form1.Height*0.6)-gryfrozmiar*0.5);
-     gryf.Left:=round((form1.Width*0.7)-gryfrozmiar*0.5);
-     gilza.Top:=round((form1.Height*0.6)-gilzarozmiar*0.5);
-     gilza.Left:=round((form1.Width*0.7)-gilzarozmiar*0.5);
-     folia.Top:=round((form1.Height*0.6)-foliarozmiar*0.5);
-     folia.Left:=round((form1.Width*0.7)-foliarozmiar*0.5);
+     gryf.Top:=round((form1.Height-gryfrozmiar)*0.5);
+     gryf.Left:=gryf.Top;                               //bo to symetryczne wiec nie ma co liczyc
+     gilza.Top:=round((form1.Height-gilzarozmiar)*0.5);
+     gilza.Left:=gilza.Top;
+     folia.Top:=round((form1.Height-foliarozmiar)*0.5);
+     folia.Left:=folia.Top;
+
+     // rysowanie
+    {
+      //gryf 1
+      form1.canvas.MoveTo(gryf.Top,gryf.top);
+      form1.canvas.LineTo(gryf.Top,800);
+      //gryf2
+      form1.canvas.MoveTo(gryf.Top+gryf.Width,gryf.top);
+      form1.canvas.LineTo(gryf.Top+gryf.Width,800);
+      //gilza1
+      form1.canvas.MoveTo(gilza.Top,gilza.top);
+      form1.canvas.LineTo(gilza.Top,800);
+      //gilza2
+      form1.canvas.MoveTo(gilza.Top+gilza.Width,gilza.top);
+      form1.canvas.LineTo(gilza.Top+gilza.Width,800);
+      //folia1
+      form1.canvas.MoveTo(folia.Top,folia.top);
+      form1.canvas.LineTo(folia.Top,800);
+      //folia2
+      form1.canvas.MoveTo(folia.Top+folia.Width,folia.top);
+      form1.canvas.LineTo(folia.Top+folia.Width,800);
+}
+przesuniecie:=250;          
+
+xfolia:=0;
+yfolia:=xfolia+round(0.5*spineditgryf)+spineditgilza.Value+spineditfolia.Value;
+
+srodek:=  round(yfolia*0.5);
+                                                    
+xgilza:=srodek-round((0.5*spineditgilza.Value)+(0.5*spineditgryf.Value));
+ygilza:=srodek+round((0.5*spineditgilza.Value)+(0.5*spineditgryf.Value));
+
+xgryf:=srodek-round(0.5*spineditgryf.Value);
+ygryf:=srodek+round(0.5*spineditgryf.Value);
+
+form1.Canvas.Clear;
+                                                    
+
+form1.canvas.Pen.color := clRed;
+form1.canvas.Ellipse(xfolia,xfolia,yfolia,yfolia);
+form1.canvas.Pen.color := clgray;
+form1.canvas.Ellipse(xgilza,xgilza,ygilza,ygilza);
+form1.canvas.Pen.color := clblack;
+form1.canvas.Ellipse(xgryf,xgryf,ygryf,ygryf);
+
+
+
+
+
+
+
+
 
 
 
@@ -114,12 +155,5 @@ end;
 
 
 
-procedure Kolo(shapeBox:TCanvas; x,y,r:integer);
-var d:integer;
-begin
-shapeBox.MoveTo(x, y+r);
-for d:=0 to 360 do
-  shapeBox.LineTo(round(x+sin(d*PI/180)*r), round(y+cos(d*PI/180)*r));
-end;
 
 end.
