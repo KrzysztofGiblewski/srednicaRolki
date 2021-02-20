@@ -66,7 +66,7 @@ procedure TForm1.SpinEditFoliaChange(Sender: TObject);
 przesuniecie:=50;
 
 xfolia:=przesuniecie;
-yfolia:=xfolia+round(0.5*spineditgryf.Value)+spineditgilza.Value+spineditfolia.Value;
+yfolia:=xfolia+spineditgryf.Value+(spineditgilza.Value*2)+(spineditfolia.Value*2);
 
 
 srodek:=  round(yfolia*0.5)+round(przesuniecie*0.5);
@@ -74,32 +74,43 @@ srodek:=  round(yfolia*0.5)+round(przesuniecie*0.5);
 xgilza:=srodek-round((0.5*spineditgilza.Value)+(0.5*spineditgryf.Value));
 ygilza:=srodek+round((0.5*spineditgilza.Value)+(0.5*spineditgryf.Value));
 
+
+panel1.Top:=srodek+150;
+panel1.Width:=form1.Width;
+
+
 xgryf:=srodek-round(0.5*spineditgryf.Value);
 ygryf:=srodek+round(0.5*spineditgryf.Value);
 form1.Canvas.Brush.Color:=clwhite;
 form1.canvas.FillRect(0,0,form1.Width,form1.Height);
 form1.Canvas.Brush.Color:=clred;
 form1.canvas.Pen.color := clRed;
-form1.canvas.Ellipse(xfolia,xfolia,yfolia,yfolia);
-form1.Canvas.Line(xfolia,srodek,xfolia,0);
-form1.Canvas.Line(xfolia,10,yfolia,10);
-form1.Canvas.Line(yfolia,srodek,yfolia,0);
-form1.Canvas.TextOut(srodek,5,foliarozmiar.ToString);
+form1.canvas.Ellipse(xfolia,xfolia,yfolia,yfolia);                                   // kolo
+form1.Canvas.Line(xfolia,srodek,xfolia,0);                                           // lewa linia
+form1.Canvas.Line(xfolia,10,yfolia,10);                                              // przekatna
+form1.Canvas.Line(yfolia,srodek,yfolia,0);                                           // prawa linia
+form1.Canvas.TextOut(srodek,5,foliarozmiar.ToString);                                // wymiary
+form1.Canvas.Polygon([Point(xfolia,10),Point(xfolia+5,5), Point(xfolia+5,15)]);      // lewy trujkacik na koncu lini
+form1.Canvas.Polygon([Point(yfolia,10),Point(yfolia-5,5), Point(yfolia-5,15)]);      // prawy trujkacik na koncu lini
 
 
 form1.canvas.Pen.color := clgray;
 form1.Canvas.Brush.Color:=clgray;
-form1.canvas.Ellipse(xgilza,xgilza,ygilza,ygilza);
+form1.canvas.Ellipse(xgilza,xgilza,ygilza,ygilza);                                   // kolo gilzy
 form1.canvas.Pen.color := clblack;
-form1.Canvas.Line(xgilza,srodek,xgilza,20);
-form1.Canvas.Line(xgilza,30,ygilza,30);
-form1.Canvas.Line(ygilza,srodek,ygilza,20);
-                                                     
+form1.Canvas.Line(xgilza,srodek,xgilza,20);                                          // lewa linia gilzy
+form1.Canvas.Line(xgilza,30,ygilza,30);                                              // przekatna gilzy
+form1.Canvas.Line(ygilza,srodek,ygilza,20);                                          // prawa linia gilzy
+form1.Canvas.Polygon([Point(xgilza,30),Point(xgilza+5,25), Point(xgilza+5,35)]);     // lewy trujkacik na koncu lini
+form1.Canvas.Polygon([Point(ygilza,30),Point(ygilza-5,25), Point(ygilza-5,35)]);     // prawy trujkacik na koncu lini
+
+
 form1.Canvas.Brush.Color:=clgray;
+form1.Canvas.Font.Color:=clwhite;
 form1.Canvas.TextOut(srodek,25,gilzarozmiar.ToString);
-                                    
 form1.Canvas.Brush.Color:=clyellow;
-form1.canvas.Ellipse(xgryf,xgryf,ygryf,ygryf);
+form1.canvas.Ellipse(xgryf,xgryf,ygryf,ygryf);         // kolo gryfu
+
 
 
  end;

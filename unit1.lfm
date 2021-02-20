@@ -1,39 +1,33 @@
 object Form1: TForm1
   Left = 448
-  Height = 800
+  Height = 500
   Top = 5
-  Width = 800
+  Width = 767
+  AutoSize = True
   Caption = 'PrzeliczPromień'
-  ClientHeight = 800
-  ClientWidth = 800
+  ClientHeight = 500
+  ClientWidth = 767
   Color = clWhite
   OnActivate = SpinEditFoliaChange
+  OnCreate = SpinEditFoliaChange
   LCLVersion = '2.0.6.0'
-  object Button1: TButton
-    Left = 720
-    Height = 25
-    Top = 5
-    Width = 75
-    Caption = 'Zamknij'
-    OnClick = Button1Click
-    TabOrder = 0
-  end
   object Panel1: TPanel
-    Left = 50
+    Left = 35
     Height = 380
-    Top = 315
+    Top = 5
     Width = 735
+    BevelOuter = bvNone
     BevelWidth = 5
     ClientHeight = 380
     ClientWidth = 735
-    TabOrder = 1
+    TabOrder = 0
     object Image1: TImage
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
-      Left = 125
+      Left = -5
       Height = 253
       Top = 127
-      Width = 610
+      Width = 810
       Anchors = [akRight, akBottom]
       Picture.Data = {
         1754506F727461626C654E6574776F726B47726170686963FA27010089504E47
@@ -2459,7 +2453,7 @@ object Form1: TForm1
       OnChange = SpinEditFoliaChange
       ParentFont = False
       TabOrder = 0
-      Value = 300
+      Value = 100
     end
     object SpinEditGilza: TSpinEdit
       Left = 180
@@ -2554,5 +2548,14 @@ object Form1: TForm1
       ParentColor = False
       ParentFont = False
     end
+  end
+  object Button1: TButton
+    Left = 680
+    Height = 25
+    Top = 10
+    Width = 75
+    Caption = 'Zamknij'
+    OnClick = Button1Click
+    TabOrder = 1
   end
 end
