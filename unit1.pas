@@ -28,8 +28,7 @@ type
     SpinEditFolia: TSpinEdit;
     SpinEditGilza: TSpinEdit;
        procedure Button1Click(Sender: TObject);
-       procedure SpinEditFoliaChange(Sender: TObject);
-
+       procedure Rysuj(Sender: TObject);
   private
 
   public
@@ -56,27 +55,35 @@ end;
 
 
 
-procedure TForm1.SpinEditFoliaChange(Sender: TObject);
-  var gryfrozmiar,gilzarozmiar,foliarozmiar,xgryf,ygryf,xgilza,ygilza,xfolia,yfolia ,srodek,przesuniecie:integer;
+
+
+ procedure TForm1.Rysuj(Sender: TObject);
+         var gryfgilzarozmiar,gryfgilzafoliarozmiar,gryfrozmiar,gilzarozmiar,foliarozmiar,xgryf,ygryf,xgilza,ygilza,xfolia,yfolia ,srodek,przesuniecie:integer;
   begin
-    gilzarozmiar :=strtoint(ComboBoxGryf.Text)+(spineditgilza.Value*2);  //czyli grubosc gryfu plus dwie scianki gilzy
-    foliarozmiar :=strtoint(ComboBoxGryf.text)+(spineditfolia.Value*2);  // bo mierze od gryfu a nie od gilzy
-    labelkoniec.Caption:=foliarozmiar.ToString;
-    labelpoczatek.Caption:=gilzarozmiar.ToString;
+    if spineditfolia.Value<=spineditgilza.Value then
+    spineditfolia.value:=spineditgilza.value+1;
+
+    gryfrozmiar:=  strtoint(form1.ComboBoxGryf.text) ;
+        gilzarozmiar :=form1.spineditgilza.Value;
+        foliarozmiar:= form1.spineditfolia.Value;
+    gryfgilzarozmiar:=gryfrozmiar+(gilzarozmiar*2);  //czyli grubosc gryfu plus dwie scianki gilzy
+    gryfgilzafoliarozmiar :=gryfgilzarozmiar+(foliarozmiar*2);  // bo mierze od gryfu a nie od gilzy
+    form1.labelkoniec.Caption:=gryfgilzafoliarozmiar.ToString;
+    form1.labelpoczatek.Caption:=gryfgilzarozmiar.ToString;
     przesuniecie:=50;
-     gryfrozmiar:=  strtoint(ComboBoxGryf.text);
+
 xfolia:=przesuniecie;
-yfolia:=xfolia+gryfrozmiar+(spineditgilza.Value*2)+(spineditfolia.Value*2);
+yfolia:=xfolia+gryfgilzafoliarozmiar;//+(form1.spineditgilza.Value*2)+(form1.spineditfolia.Value*2);
 
 
 srodek:=  round(yfolia*0.5)+round(przesuniecie*0.5);
-                                                    
-xgilza:=srodek-round((0.5*spineditgilza.Value)+(0.5*gryfrozmiar));
-ygilza:=srodek+round((0.5*spineditgilza.Value)+(0.5*gryfrozmiar));
+
+xgilza:=srodek-round((0.5*gilzarozmiar)+(0.5*gryfrozmiar));
+ygilza:=srodek+round((0.5*gilzarozmiar)+(0.5*gryfrozmiar));
 
 
-panel1.Top:=srodek+200;
-panel1.Width:=form1.Width;
+form1.panel1.Top:=srodek+200;
+form1.panel1.Width:=form1.Width;
 
 
 xgryf:=srodek-round(0.5*gryfrozmiar);
@@ -90,7 +97,7 @@ form1.Canvas.Line(xfolia,srodek+80,xfolia,0);                                   
 form1.Canvas.Line(xfolia,10,yfolia,10);                                              // przekatna
 form1.Canvas.Line(yfolia,srodek+80,yfolia,0);                                        // prawa linia
 form1.Canvas.Font.Size:=12;
-form1.Canvas.TextOut(srodek,0,foliarozmiar.ToString);                                // wymiary
+form1.Canvas.TextOut(srodek,0,gryfgilzafoliarozmiar.ToString);                                // wymiary
 form1.Canvas.Polygon([Point(xfolia,10),Point(xfolia+5,5), Point(xfolia+5,15)]);      // lewy trujkacik na koncu lini
 form1.Canvas.Polygon([Point(yfolia,10),Point(yfolia-5,5), Point(yfolia-5,15)]);      // prawy trujkacik na koncu lini
 
@@ -108,16 +115,13 @@ form1.Canvas.Polygon([Point(ygilza,30),Point(ygilza-5,25), Point(ygilza-5,35)]);
 
 form1.Canvas.Brush.Color:=clgray;
 form1.Canvas.Font.Color:=clwhite;
-form1.Canvas.TextOut(srodek,20,gilzarozmiar.ToString);
+form1.Canvas.TextOut(srodek,20,gryfgilzarozmiar.ToString);
 form1.Canvas.Brush.Color:=clyellow;
 form1.canvas.Ellipse(xgryf,xgryf,ygryf,ygryf);         // kolo gryfu
 
 
 
  end;
-
-
-
 
 
 
