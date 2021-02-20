@@ -64,22 +64,21 @@ end;
     spineditfolia.value:=spineditgilza.value+1;
 
     gryfrozmiar:=  strtoint(form1.ComboBoxGryf.text) ;
-        gilzarozmiar :=form1.spineditgilza.Value;
-        foliarozmiar:= form1.spineditfolia.Value;
-    gryfgilzarozmiar:=gryfrozmiar+(gilzarozmiar*2);  //czyli grubosc gryfu plus dwie scianki gilzy
-    gryfgilzafoliarozmiar :=gryfgilzarozmiar+(foliarozmiar*2);  // bo mierze od gryfu a nie od gilzy
-    form1.labelkoniec.Caption:=gryfgilzafoliarozmiar.ToString;
-    form1.labelpoczatek.Caption:=gryfgilzarozmiar.ToString;
-    przesuniecie:=50;
+    gilzarozmiar :=form1.spineditgilza.Value;
+    foliarozmiar:= form1.spineditfolia.Value;
+    gryfgilzarozmiar:=gryfrozmiar+(gilzarozmiar*2);             // czyli grubosc gryfu plus dwie scianki gilzy
+    gryfgilzafoliarozmiar :=gryfrozmiar+(foliarozmiar*2);  // bo mierze od gryfu a nie od gilzy
+    form1.labelpoczatek.Caption:=gryfgilzarozmiar.ToString;     // suma gryfu i gilzy
+    form1.labelkoniec.Caption:=gryfgilzafoliarozmiar.ToString;  // suma gryfu gilzy i foli
+    przesuniecie:=50;                                           // przesuniecie tak zeby od samego rogu nie zaczynalo
 
 xfolia:=przesuniecie;
-yfolia:=xfolia+gryfgilzafoliarozmiar;//+(form1.spineditgilza.Value*2)+(form1.spineditfolia.Value*2);
-
+yfolia:=xfolia+gryfgilzafoliarozmiar;
 
 srodek:=  round(yfolia*0.5)+round(przesuniecie*0.5);
 
-xgilza:=srodek-round((0.5*gilzarozmiar)+(0.5*gryfrozmiar));
-ygilza:=srodek+round((0.5*gilzarozmiar)+(0.5*gryfrozmiar));
+xgilza:=srodek-round(gilzarozmiar+(0.5*gryfrozmiar));
+ygilza:=srodek+round(gilzarozmiar+(0.5*gryfrozmiar));
 
 
 form1.panel1.Top:=srodek+200;
@@ -88,6 +87,7 @@ form1.panel1.Width:=form1.Width;
 
 xgryf:=srodek-round(0.5*gryfrozmiar);
 ygryf:=srodek+round(0.5*gryfrozmiar);
+
 form1.Canvas.Brush.Color:=clwhite;
 form1.canvas.FillRect(0,0,form1.Width,form1.Height);
 form1.Canvas.Brush.Color:=clred;
