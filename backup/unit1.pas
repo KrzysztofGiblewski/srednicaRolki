@@ -14,6 +14,7 @@ type
 
   TForm1 = class(TForm)
     Bevel1: TBevel;
+    Bevel2: TBevel;
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
@@ -22,6 +23,10 @@ type
     Label1: TLabel;
     Label10: TLabel;
     Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
     LabelWynikWagi: TLabel;
     LabelWynikMetrow: TLabel;
     Label2: TLabel;
@@ -111,7 +116,6 @@ begin
 
 end;
 
-
  procedure TForm1.Rysuj(Sender: TObject);
        var gryfgilzarozmiar,
            gryfgilzafoliarozmiar,
@@ -147,7 +151,7 @@ end;
     xgilza:=srodek-round(gilzarozmiar+(0.5*gryfrozmiar));
     ygilza:=srodek+round(gilzarozmiar+(0.5*gryfrozmiar));
 
-   form1.panel1.Top:=srodek+100;
+   //form1.panel1.Top:=srodek+100;
 
    form1.panel1.Width:=form1.Width;
 
