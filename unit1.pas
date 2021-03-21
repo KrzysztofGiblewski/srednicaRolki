@@ -15,10 +15,13 @@ type
   TForm1 = class(TForm)
     Bevel1: TBevel;
     Bevel2: TBevel;
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
+    ButtonZamknijProgram: TButton;
+    ButtonPrzeliczZKiloNaMetry: TButton;
+    ButtonPrzeliczZMetrowNaKilo: TButton;
+    ComboBoxListaFolii: TComboBox;
     ComboBoxGryf: TComboBox;
+    FloatSpinEditWagaWzorcowego: TFloatSpinEdit;
+    FloatSpinEditWagaSzukanego: TFloatSpinEdit;
     Image1: TImage;
     Label1: TLabel;
     Label10: TLabel;
@@ -39,16 +42,18 @@ type
     Label9: TLabel;
     LabelKoniec: TLabel;
     LabelPoczatek: TLabel;
+    MemoPamiecOstatniego: TMemo;
     Panel1: TPanel;
-    SpinEditWagaWzorcowego: TSpinEdit;
     SpinEditMetryWzorcowego: TSpinEdit;
     SpinEditWagaSzukanego: TSpinEdit;
     SpinEditMetrySzukanego: TSpinEdit;
     SpinEditFolia: TSpinEdit;
     SpinEditGilza: TSpinEdit;
-       procedure Button1Click(Sender: TObject);
-       procedure Button2Click(Sender: TObject);
-       procedure Button3Click(Sender: TObject);
+       procedure ButtonZamknijProgramClick(Sender: TObject);
+       procedure ButtonPrzeliczZKiloNaMetryClick(Sender: TObject);
+       procedure ButtonPrzeliczZMetrowNaKiloClick(Sender: TObject);
+       procedure FormActivate(Sender: TObject);
+       procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
        procedure Rysuj(Sender: TObject);
   private
 
@@ -68,52 +73,95 @@ implementation
 
 
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.ButtonZamknijProgramClick(Sender: TObject);
 begin
   application.Terminate;
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
+
+
+procedure TForm1.ButtonPrzeliczZKiloNaMetryClick(Sender: TObject);
 var wagaWalkaWzorcowego,
     wagaWalkaSzukanego,
     metryWalkaWzorcowego,
-    wynikLiczeniaMetrow :longint;
+    wynikLiczeniaMetrow :double;
+    wynikKgWStringu,wynikMetrWStringu:string;
+
+
 begin
-    wagaWalkaWzorcowego:= SpinEditWagaWzorcowego.Value*1000;   // tak zeby dokladniej to na gramy przelicze
-    metryWalkaWzorcowego:= SpinEditMetryWzorcowego.Value;  // tu mi metr dokladnosci mi wystarczy
-    wagaWalkaSzukanego :=SpinEditWagaSzukanego.Value*1000;
+       wagaWalkaWzorcowego:= FloatSpinEditWagaWzorcowego.Value*1000;       // dla dokladnosci z przecinkiem
+       metryWalkaWzorcowego:= SpinEditMetryWzorcowego.Value;               // tu mi metr dokladnosci mi wystarczy
+       wagaWalkaSzukanego :=FloatSpinEditWagaSzukanego.Value*1000;
 
 
-       if (SpinEditWagaSzukanego.Value>0)  then          // szukam wagi
+       if (FloatSpinEditWagaSzukanego.Value>0)  then                             // szukam wagi
           begin
-             wynikLiczeniaMetrow := round((metryWalkaWzorcowego / wagaWalkaWzorcowego)*wagaWalkaSzukanego);
-             LabelWynikMetrow.Caption:= inttostr(wynikLiczeniaMetrow)+' m';
-             LabelWynikWagi.Caption:= inttostr(SpinEditWagaSzukanego.Value)+' kg';
+             wynikLiczeniaMetrow := (metryWalkaWzorcowego / wagaWalkaWzorcowego)*wagaWalkaSzukanego;
+
+             wynikKgWStringu:=   FloatToStrF((wagaWalkaSzukanego*0.001),fffixed,8,2);    // zaokraglam do dwuch miejsc po przecinku
+              wynikMetrWStringu:=FloatToStrF(wynikLiczeniaMetrow,fffixed,8,2);
+
+
+             LabelWynikMetrow.Caption:= wynikMetrWStringu+' m';
+             LabelWynikWagi.Caption:= wynikKgWStringu+' kg';      // float na stringa robie
              SpinEditMetrySzukanego.Value:=wynikLiczeniaMetrow;
           end;
 
 
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
+procedure TForm1.ButtonPrzeliczZMetrowNaKiloClick(Sender: TObject);
 var wagaWalkaWzorcowego,
     metryWalkaWzorcowego,
     metryWalkaSzukanego,
-    wynikLiczeniaWagi :longint;
+    wynikLiczeniaWagi :double;
+    wynikKgWStringu ,wynikMetrWStringu:string;
+
 begin
-    wagaWalkaWzorcowego:= SpinEditWagaWzorcowego.Value*1000;   // tak zeby dokladniej to na gramy przelicze
-    metryWalkaWzorcowego:= SpinEditMetryWzorcowego.Value;  // tu mi metr dokladnosci mi wystarczy
-    metryWalkaSzukanego :=SpinEditMetrySzukanego.Value;
+     wagaWalkaWzorcowego:= FloatSpinEditWagaWzorcowego.Value*1000;
+     metryWalkaWzorcowego:= SpinEditMetryWzorcowego.Value;  // tu mi metr dokladnosci mi wystarczy
+     metryWalkaSzukanego :=SpinEditMetrySzukanego.Value;
+
 
        if (SpinEditMetrySzukanego.Value>0) then          // szukam metrow
           begin
-             wynikLiczeniaWagi := round(((wagaWalkaWzorcowego / metryWalkaWzorcowego)*metryWalkaSzukanego)*0.001);
-             LabelWynikWagi.Caption:= inttostr(wynikLiczeniaWagi)+' kg';
-             LabelWynikMetrow.Caption:= inttostr(SpinEditMetrySzukanego.Value)+' m';
+             wynikLiczeniaWagi := ((wagaWalkaWzorcowego / metryWalkaWzorcowego)*metryWalkaSzukanego)*0.001;
+
+              wynikKgWStringu:=   FloatToStrF(wynikLiczeniaWagi,fffixed,8,2);    // zaokraglam do dwuch miejsc po przecinku
+              wynikMetrWStringu:=FloatToStrF(metryWalkaSzukanego,fffixed,3,2);
+
+             LabelWynikWagi.Caption:= wynikKgWStringu+' kg';
+             LabelWynikMetrow.Caption:= wynikMetrWStringu+' m';
              SpinEditWagaSzukanego.Value:=wynikLiczeniaWagi;
+
           end;
 
 
+end;
+
+procedure TForm1.FormActivate(Sender: TObject);
+begin
+    MemoPamiecOstatniego.Lines.LoadFromFile('bazaRolekFolii.txt');
+    FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[1]); // bo linia 0 to jej nazwa czyli string 'ostatnia'
+    SpinEditMetryWzorcowego.Value:=strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[2]);
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+var
+TF : TextFile;
+ begin
+
+ MemoPamiecOstatniego.Lines.Clear;
+ MemoPamiecOstatniego.Lines.Add('ostatnia');
+ MemoPamiecOstatniego.Lines.Add(floattostr(FloatSpinEditWagaWzorcowego.Value));
+ MemoPamiecOstatniego.Lines.Add(floattostr(SpinEditMetryWzorcowego.Value));
+
+  AssignFile(TF, 'bazaRolekFolii.txt');
+  ReWrite(TF);
+  Writeln(TF, 'ostatnia');
+  Writeln(TF, floattostr(FloatSpinEditWagaWzorcowego.Value));
+  Writeln(TF, floattostr(SpinEditMetryWzorcowego.Value));
+  CloseFile(TF);
 end;
 
  procedure TForm1.Rysuj(Sender: TObject);
@@ -151,9 +199,7 @@ end;
     xgilza:=srodek-round(gilzarozmiar+(0.5*gryfrozmiar));
     ygilza:=srodek+round(gilzarozmiar+(0.5*gryfrozmiar));
 
-   //form1.panel1.Top:=srodek+100;
-
-   form1.panel1.Width:=form1.Width;
+    form1.panel1.Width:=form1.Width;
 
 
     xgryf:=srodek-round(0.5*gryfrozmiar);
