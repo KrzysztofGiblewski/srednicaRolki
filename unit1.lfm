@@ -1,18 +1,19 @@
 object Form1: TForm1
-  Left = 352
+  Left = 341
   Height = 749
-  Top = 3
+  Top = 0
   Width = 1000
   HorzScrollBar.Page = 1000
   VertScrollBar.Page = 655
   AutoScroll = True
-  BorderIcons = [biSystemMenu, biMinimize]
+  BorderIcons = [biMinimize]
   Caption = 'PrzeliczPromień'
   ClientHeight = 732
   ClientWidth = 1000
   Color = clWhite
   OnActivate = Wczytaj
   OnCreate = Rysuj
+  OnDestroy = Zapamietaj
   OnPaint = Rysuj
   LCLVersion = '2.0.6.0'
   Scaled = False
@@ -616,7 +617,7 @@ object Form1: TForm1
       Left = 593
       Height = 84
       Top = 3
-      Width = 362
+      Width = 363
       Shape = bsFrame
     end
     object Label1: TLabel
@@ -679,7 +680,7 @@ object Form1: TForm1
       Width = 50
       BorderSpacing.Around = 50
       BorderSpacing.CellAlignHorizontal = ccaLeftTop
-      Color = clGray
+      Color = clYellow
       Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clBlack
       Font.Height = -21
@@ -752,7 +753,7 @@ object Form1: TForm1
       Height = 38
       Top = 100
       Width = 76
-      Color = clYellow
+      Color = clGray
       Font.Height = -21
       ItemHeight = 30
       ItemIndex = 1
@@ -979,10 +980,10 @@ object Form1: TForm1
       Value = 100
     end
     object ComboBoxListaFolii: TComboBox
-      Left = 620
+      Left = 593
       Height = 23
       Top = 80
-      Width = 325
+      Width = 362
       ItemHeight = 15
       Items.Strings = (
         'BOPA 870/12'
@@ -1000,6 +1001,7 @@ object Form1: TForm1
     Top = 325
     Width = 60
     TabOrder = 1
+    Visible = False
   end
   object MemoBazaFolii: TMemo
     Left = 415

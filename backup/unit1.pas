@@ -76,10 +76,11 @@ implementation
 
 procedure TForm1.ButtonZamknijProgramClick(Sender: TObject); // przycisk zamykajacy program
 begin
-  application.Terminate;
+   Zapamietaj(Sender);
+   application.Terminate;
 end;
 
-procedure TForm1.ButtonPrzeliczZKiloNaMetryClick(Sender: TObject); //przycisk do przeliczania z kilogramow na metry
+procedure TForm1.ButtonPrzeliczZKiloNaMetryClick(Sender: TObject); // przycisk do przeliczania z kilogramow na metry
 var
   wagaWalkaWzorcowego, wagaWalkaSzukanego, metryWalkaWzorcowego,
   wynikLiczeniaMetrow: double;
@@ -102,8 +103,6 @@ begin
     LabelWynikWagi.Caption := wynikKgWStringu + ' kg';                  // float na stringa robie
     SpinEditMetrySzukanego.Value := wynikLiczeniaMetrow;
   end;
-
-   Zapamietaj(Sender);
 
 end;
 
@@ -132,7 +131,6 @@ begin
 
   end;
    
-   Zapamietaj(Sender);
 
 end;
 
@@ -151,16 +149,16 @@ procedure TForm1.ComboBoxListaFoliiSelect(Sender: TObject); // do tyboru folii z
 
 end;
 
-
-procedure TForm1.Wczytaj(Sender:TObject);
+procedure TForm1.Wczytaj(Sender:TObject); // na starcie wczytuje poprzednie wartosci do programu z pliku ostatnie.txt
   var
     linie, linieZTxt: integer;
   begin
-    MemoPamiecOstatniego.Lines.LoadFromFile('ostatnia.txt');     // do memo wczytuje plik txt
-    FloatSpinEditWagaWzorcowego.Value :=    strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[1]);  // bo linia 0 to jej nazwa czyli string 'ostatnia'
-    SpinEditMetryWzorcowego.Value :=     strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[2]);    //
-    SpinEditFolia.Value :=     strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[3]);             // srednica ostatniej miezonej rolki
-
+    MemoPamiecOstatniego.Lines.LoadFromFile('ostatnia.txt');                                        // do memo wczytuje plik txt
+    FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[1]);  // bo linia 0 to jej nazwa czyli string 'ostatnia'
+    SpinEditMetryWzorcowego.Value := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[2]);
+    SpinEditFolia.Value := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[3]);                  // srednica ostatniej miezonej rolki
+    SpinEditGilza.Value := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[4]);
+    ComboBoxGryf.Text  := MemoPamiecOstatniego.Lines.ValueFromIndex[5];
 
     MemoBazaFolii.Lines.LoadFromFile('bazaRolekFolii.txt');    // laduje i sprawdzam ilosc lini baze folii
     linieZTxt := MemoBazaFolii.Lines.Count;    // licze linie w pliku txt
@@ -182,7 +180,9 @@ begin
   MemoPamiecOstatniego.Lines.Add('ostatnia');
   MemoPamiecOstatniego.Lines.Add(floattostr(FloatSpinEditWagaWzorcowego.Value)); // zapisze wage wzorcowego
   MemoPamiecOstatniego.Lines.Add(floattostr(SpinEditMetryWzorcowego.Value));     // zapisze metry wzorcowego
-  MemoPamiecOstatniego.Lines.Add(floattostr(SpinEditFolia.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
+  MemoPamiecOstatniego.Lines.Add(inttostr(SpinEditFolia.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
+  MemoPamiecOstatniego.Lines.Add(inttostr(SpinEditGilza.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
+  MemoPamiecOstatniego.Lines.Add(ComboBoxGryf.Text);               // zapisze ostatnia srednice foli (po lewej stronie)
 
   AssignFile(TF, 'ostatnia.txt');
   ReWrite(TF);
@@ -190,6 +190,8 @@ begin
   Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[1]);
   Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[2]);
   Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[3]);
+  Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[4]);
+  Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[5]);
 
   CloseFile(TF);
 end;
@@ -219,59 +221,52 @@ begin
   xgilza := srodek - round(gilzarozmiar + (0.5 * gryfrozmiar));
   ygilza := srodek + round(gilzarozmiar + (0.5 * gryfrozmiar));
 
-  form1.panel1.Width := form1.Width;
-
-
   xgryf := srodek - round(0.5 * gryfrozmiar);
   ygryf := srodek + round(0.5 * gryfrozmiar);
+
+  form1.panel1.Width := form1.Width;
+  form1.Canvas.Pen.Width:=1;  // taka linia grubosc 1
+  form1.Canvas.Pen.Style:=PsSolid;  // taka linia ciagla
+  form1.canvas.Pen.color := clblack;  // kolor czarny
 
   form1.Canvas.Brush.Color := clwhite;
   form1.canvas.FillRect(0, 0, form1.Width, form1.Height);
   form1.Canvas.Brush.Color := clred;
   form1.canvas.Pen.color := clRed;
-  form1.canvas.Ellipse(xfolia, xfolia, yfolia, yfolia);
-  // kolo
-  form1.Canvas.Line(xfolia, srodek + 80, xfolia, 0);
-  // lewa linia
-  form1.Canvas.Line(xfolia, 10, yfolia, 10);
-  // przekatna
-  form1.Canvas.Line(yfolia, srodek + 80, yfolia, 0);
-  // prawa linia
+  form1.canvas.Ellipse(xfolia, xfolia, yfolia, yfolia);   // kolo folia
+  form1.Canvas.Line(xfolia, srodek + 80, xfolia, 0);      // lewa linia foli
+  form1.Canvas.Line(xfolia, 10, yfolia, 10);              // przekatna foli
+  form1.Canvas.Line(yfolia, srodek + 80, yfolia, 0);      // prawa linia foli
   form1.Canvas.Font.Size := 12;
-  form1.Canvas.TextOut(round(srodek - foliarozmiar * 0.3), 0,
-    gryfgilzafoliarozmiar.ToString);                                // wymiary
-  form1.Canvas.Polygon([Point(xfolia, 10), Point(xfolia + 5, 5), Point(xfolia + 5, 15)]);
-  // lewy trujkacik na koncu lini
-  form1.Canvas.Polygon([Point(yfolia, 10), Point(yfolia - 5, 5), Point(yfolia - 5, 15)]);
-  // prawy trujkacik na koncu lini
+  form1.Canvas.TextOut(round(srodek - foliarozmiar * 0.3), 0,    gryfgilzafoliarozmiar.ToString);                                // wymiary
+  form1.Canvas.Polygon([Point(xfolia, 10), Point(xfolia + 5, 5), Point(xfolia + 5, 15)]);  // lewy trujkacik na koncu lini
+  form1.Canvas.Polygon([Point(yfolia, 10), Point(yfolia - 5, 5), Point(yfolia - 5, 15)]);  // prawy trujkacik na koncu lini
 
 
-  form1.canvas.Pen.color := clgray;
-  form1.Canvas.Brush.Color := clgray;
-  form1.canvas.Ellipse(xgilza, xgilza, ygilza, ygilza);
-  // kolo gilzy
-  form1.canvas.Pen.color := clblack;
-  form1.Canvas.Line(xgilza, srodek + 50, xgilza, 20);
-  // lewa linia gilzy
-  form1.Canvas.Line(xgilza, 30, ygilza, 30);
-  // przekatna gilzy
-  form1.Canvas.Line(ygilza, srodek + 50, ygilza, 20);
-  // prawa linia gilzy
-  form1.Canvas.Polygon([Point(xgilza, 30), Point(xgilza + 5, 25),
-    Point(xgilza + 5, 35)]);
-  // lewy trujkacik na koncu lini
-  form1.Canvas.Polygon([Point(ygilza, 30), Point(ygilza - 5, 25),
-    Point(ygilza - 5, 35)]);
-  // prawy trujkacik na koncu lini
+  form1.canvas.Pen.color := clyellow;        // zmiana koloru na gilze
+  form1.Canvas.Brush.Color := clyellow;      // zmiana koloru na gilze
+  form1.canvas.Ellipse(xgilza, xgilza, ygilza, ygilza);  // kolo gilzy
 
+  form1.Canvas.Pen.Width:=1;  // taka linia grubosc 1
+  form1.Canvas.Pen.Style:=PsSolid;  // taka linia ciagla
+  form1.canvas.Pen.color := clblack;  // kolor czarny
+  form1.Canvas.Brush.Color := clblack;
+
+  form1.Canvas.Line(xgilza, srodek + 50, xgilza, 20);   // lewa linia gilzy
+  form1.Canvas.Line(xgilza, 30, ygilza, 30);      // przekatna gilzy
+  form1.Canvas.Line(ygilza, srodek + 50, ygilza, 20);   // prawa linia gilzy
+  form1.Canvas.Polygon([Point(xgilza, 30), Point(xgilza + 5, 25),     Point(xgilza + 5, 35)]);   // lewy trujkacik na koncu lini
+  form1.Canvas.Polygon([Point(ygilza, 30), Point(ygilza - 5, 25),     Point(ygilza - 5, 35)]);     // prawy trujkacik na koncu lini
 
   form1.Canvas.Brush.Color := clgray;
   form1.Canvas.Font.Color := clwhite;
-  form1.Canvas.TextOut(srodek - 20, 20, gryfgilzarozmiar.ToString);
-  // tekst rozmiar gryfu
-  form1.Canvas.Brush.Color := clyellow;
-  form1.canvas.Ellipse(xgryf, xgryf, ygryf, ygryf);
-  // kolo gryfu
+  form1.Canvas.TextOut(srodek - 20, 20, gryfgilzarozmiar.ToString);  // tekst rozmiar gryfu
+  form1.Canvas.Brush.Color := clgray;                 // kolorek gryfu
+  form1.Canvas.Pen.Width:=10;                         // taka linia grubsza
+  form1.Canvas.Pen.Color:=clgray;                     // kolorek gryfu
+  form1.Canvas.Pen.Style:=PsDash;                     // taka linia przerywana
+  form1.canvas.Ellipse(xgryf, xgryf, ygryf, ygryf);   // kolo gryfu
+
 
 end;
 

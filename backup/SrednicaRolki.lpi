@@ -16,12 +16,17 @@
         <TextDesc Value="Malutki programik do przeliczania z fragmentu promienia średnicę rolki"/>
       </XPManifest>
       <Icon Value="0"/>
+      <Resources Count="3">
+        <Resource_0 FileName="cmykPamietaj.ico" Type="ICON" ResourceName="CMYKPAMIETAJ"/>
+        <Resource_1 FileName="bazaRolekFolii.txt" Type="RCDATA" ResourceName="BAZAROLEKFOLII"/>
+        <Resource_2 FileName="ostatnia.txt" Type="RCDATA" ResourceName="OSTATNIA"/>
+      </Resources>
     </General>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <MajorVersionNr Value="1"/>
-      <RevisionNr Value="2"/>
-      <BuildNr Value="1"/>
+      <MajorVersionNr Value="2"/>
+      <MinorVersionNr Value="1"/>
+      <BuildNr Value="2"/>
       <Language Value="0415"/>
       <StringTable CompanyName="KrzysztofGiblewski" LegalCopyright="KrzysztofGiblewski@gmail.com" ProductName="SrednicaRolki" ProductVersion="0.0.0.0"/>
     </VersionInfo>
@@ -74,6 +79,11 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <Verbosity>
+        <ShoLineNum Value="True"/>
+      </Verbosity>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
