@@ -15,11 +15,13 @@ type
   TForm1 = class(TForm)
     Bevel1: TBevel;
     Bevel2: TBevel;
+    Button1: TButton;
     ButtonZamknijProgram: TButton;
     ButtonPrzeliczZKiloNaMetry: TButton;
     ButtonPrzeliczZMetrowNaKilo: TButton;
     ComboBoxListaFolii: TComboBox;
     ComboBoxGryf: TComboBox;
+    FloatSpinEditFolia: TFloatSpinEdit;
     FloatSpinEditWagaWzorcowego: TFloatSpinEdit;
     FloatSpinEditWagaSzukanego: TFloatSpinEdit;
     Image1: TImage;
@@ -30,6 +32,10 @@ type
     Label13: TLabel;
     Label14: TLabel;
     Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    LabelZSrednicy: TLabel;
     LabelWynikWagi: TLabel;
     LabelWynikMetrow: TLabel;
     Label2: TLabel;
@@ -45,10 +51,11 @@ type
     MemoBazaFolii: TMemo;
     MemoPamiecOstatniego: TMemo;
     Panel1: TPanel;
+    SpinEditSrenica: TSpinEdit;
     SpinEditMetryWzorcowego: TSpinEdit;
     SpinEditMetrySzukanego: TSpinEdit;
-    SpinEditFolia: TSpinEdit;
     SpinEditGilza: TSpinEdit;
+    procedure Button1Click(Sender: TObject);
     procedure ButtonZamknijProgramClick(Sender: TObject);
     procedure ButtonPrzeliczZKiloNaMetryClick(Sender: TObject);
     procedure ButtonPrzeliczZMetrowNaKiloClick(Sender: TObject);
@@ -78,6 +85,36 @@ procedure TForm1.ButtonZamknijProgramClick(Sender: TObject); // przycisk zamykaj
 begin
    Zapamietaj(Sender);
    application.Terminate;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var poleCalaRolka , poleResztaRolka,srednicaLiczonej,gryfgilzarozmiar,
+gryfgilzafoliarozmiar,gilzarozmiar,foliarozmiar,gryfrozmiar ,
+gramaturaWzoru, masaCalejRolki,masaResztyWalka,
+promienCalej, promienReszty, promienGilzy, pi:double;
+begin
+  masaCalejRolki:=form1.FloatSpinEditWagaWzorcowego.Value;
+  gryfrozmiar := StrToInt(form1.ComboBoxGryf.Text);   // nadajemy wartosc rozmiaru gryfu
+  gilzarozmiar := form1.spineditgilza.Value;   // nadajemy wartosc rozmiaru gilzy
+  foliarozmiar := form1.FloatSpinEditFolia.Value;    // nadajemy wartosc rozmiaru folii
+  srednicaLiczonej:=form1.SpinEditSrenica.Value; // wpisywana recznie w panelu
+  gryfgilzarozmiar := gryfrozmiar + (gilzarozmiar * 2);  // czyli grubosc gryfu plus dwie scianki gilzy
+  gryfgilzafoliarozmiar := gryfrozmiar + (foliarozmiar * 2);  // bo mierze od gryfu a nie od gilzy
+  promienCalej:=gryfgilzafoliarozmiar*0.5;
+  promienReszty:=  srednicaLiczonej*0.5;
+  promienGilzy   :=gryfgilzarozmiar*0.5;
+  pi:=3.14159;
+  poleCalaRolka :=(pi*(promienCalej*promienCalej))-(pi*(promienGilzy*promienGilzy));
+  poleResztaRolka:=(pi*(promienReszty*promienReszty))-(pi*(promienGilzy*promienGilzy));
+
+  label16.Caption:=poleCalaRolka.ToString();  // nie widoczne tylko do kontroli
+  label17.Caption:=poleResztaRolka.ToString();  // nie widoczne tylko do kontroli
+
+  gramaturaWzoru:=masaCalejRolki/poleCalaRolka;   // przeliczam gramature czyli mase jednostki folii
+  masaResztyWalka:=poleResztaRolka* gramaturaWzoru;
+  LabelZSrednicy.Caption:=FloatToStrF(masaResztyWalka, fffixed, 8, 2) +' kg';
+  form1.FloatSpinEditWagaSzukanego.Value:=masaResztyWalka;
+  form1.ButtonPrzeliczZKiloNaMetry.Click;
 end;
 
 procedure TForm1.ButtonPrzeliczZKiloNaMetryClick(Sender: TObject); // przycisk do przeliczania z kilogramow na metry
@@ -156,7 +193,7 @@ procedure TForm1.Wczytaj(Sender:TObject); // na starcie wczytuje poprzednie wart
     MemoPamiecOstatniego.Lines.LoadFromFile('ostatnia.txt');                                        // do memo wczytuje plik txt
     FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[1]);  // bo linia 0 to jej nazwa czyli string 'ostatnia'
     SpinEditMetryWzorcowego.Value := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[2]);
-    SpinEditFolia.Value := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[3]);                  // srednica ostatniej miezonej rolki
+    FloatSpinEditFolia.Value := strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[3]);                  // srednica ostatniej miezonej rolki
     SpinEditGilza.Value := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[4]);
     ComboBoxGryf.Text  := MemoPamiecOstatniego.Lines.ValueFromIndex[5];
 
@@ -180,7 +217,7 @@ begin
   MemoPamiecOstatniego.Lines.Add('ostatnia');
   MemoPamiecOstatniego.Lines.Add(floattostr(FloatSpinEditWagaWzorcowego.Value)); // zapisze wage wzorcowego
   MemoPamiecOstatniego.Lines.Add(floattostr(SpinEditMetryWzorcowego.Value));     // zapisze metry wzorcowego
-  MemoPamiecOstatniego.Lines.Add(inttostr(SpinEditFolia.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
+  MemoPamiecOstatniego.Lines.Add( floattostr( FloatSpinEditFolia.Value ));               // zapisze ostatnia srednice foli (po lewej stronie)
   MemoPamiecOstatniego.Lines.Add(inttostr(SpinEditGilza.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
   MemoPamiecOstatniego.Lines.Add(ComboBoxGryf.Text);               // zapisze ostatnia srednice foli (po lewej stronie)
 
@@ -198,14 +235,15 @@ end;
 
 procedure TForm1.Rysuj(Sender: TObject);  // rysuje kola-walki folii
 var
-  gryfgilzarozmiar, gryfgilzafoliarozmiar, gryfrozmiar, gilzarozmiar,
-  foliarozmiar, xgryf, ygryf, xgilza, ygilza, xfolia, yfolia, srodek,
+   xgryf, ygryf, xgilza, ygilza, xfolia, yfolia, srodek,
   przesuniecie: integer;
+  gryfgilzarozmiar, gryfgilzafoliarozmiar, gryfrozmiar, gilzarozmiar,
+  foliarozmiar: double;
 begin
 
   gryfrozmiar := StrToInt(form1.ComboBoxGryf.Text);   // nadajemy wartosc rozmiaru gryfu
   gilzarozmiar := form1.spineditgilza.Value;   // nadajemy wartosc rozmiaru gilzy
-  foliarozmiar := form1.spineditfolia.Value;    // nadajemy wartosc rozmiaru folii
+  foliarozmiar := form1.FloatSpinEditFolia.Value;    // nadajemy wartosc rozmiaru folii
 
   gryfgilzarozmiar := gryfrozmiar + (gilzarozmiar * 2);  // czyli grubosc gryfu plus dwie scianki gilzy
   gryfgilzafoliarozmiar := gryfrozmiar + (foliarozmiar * 2);  // bo mierze od gryfu a nie od gilzy
@@ -214,7 +252,7 @@ begin
   przesuniecie := 50;                                           // przesuniecie tak zeby od samego rogu nie zaczynalo
 
   xfolia := przesuniecie;
-  yfolia := xfolia + gryfgilzafoliarozmiar;
+  yfolia := xfolia + round(gryfgilzafoliarozmiar);
 
   srodek := round(yfolia * 0.5) + round(przesuniecie * 0.5);
 
@@ -269,8 +307,6 @@ begin
 
 
 end;
-
-
 
 
 end.

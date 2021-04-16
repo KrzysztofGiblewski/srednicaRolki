@@ -24,12 +24,11 @@
     </General>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <MajorVersionNr Value="2"/>
-      <MinorVersionNr Value="1"/>
-      <RevisionNr Value="3"/>
-      <BuildNr Value="5"/>
+      <MajorVersionNr Value="3"/>
+      <MinorVersionNr Value="2"/>
+      <BuildNr Value="8"/>
       <Language Value="0415"/>
-      <StringTable CompanyName="KrzysztofGiblewski" LegalCopyright="KrzysztofGiblewski@gmail.com" ProductName="SrednicaRolki" ProductVersion="2.3.0.3"/>
+      <StringTable CompanyName="KrzysztofGiblewski" LegalCopyright="KrzysztofGiblewski@gmail.com" LegalTrademarks="Krzysztofgiblewski@gmail.com" OriginalFilename="Srednica Rolki" ProductName="SrednicaRolki" ProductVersion="2.3.0.3"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>

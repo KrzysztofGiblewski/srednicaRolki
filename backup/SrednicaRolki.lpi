@@ -17,18 +17,18 @@
       </XPManifest>
       <Icon Value="0"/>
       <Resources Count="3">
-        <Resource_0 FileName="cmykPamietaj.ico" Type="ICON" ResourceName="CMYKPAMIETAJ"/>
-        <Resource_1 FileName="bazaRolekFolii.txt" Type="RCDATA" ResourceName="BAZAROLEKFOLII"/>
-        <Resource_2 FileName="ostatnia.txt" Type="RCDATA" ResourceName="OSTATNIA"/>
+        <Resource_0 FileName="bazaRolekFolii.txt" Type="RCDATA" ResourceName="BAZAROLEKFOLII"/>
+        <Resource_1 FileName="ostatnia.txt" Type="RCDATA" ResourceName="OSTATNIA"/>
+        <Resource_2 FileName="SrednicaRolki.ico" Type="ICON" ResourceName="SREDNICAROLKI"/>
       </Resources>
     </General>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <MajorVersionNr Value="2"/>
-      <MinorVersionNr Value="1"/>
-      <BuildNr Value="2"/>
+      <MajorVersionNr Value="3"/>
+      <MinorVersionNr Value="2"/>
+      <BuildNr Value="8"/>
       <Language Value="0415"/>
-      <StringTable CompanyName="KrzysztofGiblewski" LegalCopyright="KrzysztofGiblewski@gmail.com" ProductName="SrednicaRolki" ProductVersion="0.0.0.0"/>
+      <StringTable CompanyName="KrzysztofGiblewski" LegalCopyright="KrzysztofGiblewski@gmail.com" LegalTrademarks="Krzysztofgiblewski@gmail.com" OriginalFilename="Srednica Rolki" ProductName="SrednicaRolki" ProductVersion="2.3.0.3"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
