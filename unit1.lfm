@@ -4,7 +4,7 @@ object Form1: TForm1
   Top = 0
   Width = 1000
   HorzScrollBar.Page = 1000
-  VertScrollBar.Page = 670
+  VertScrollBar.Page = 655
   AutoScroll = True
   BorderIcons = [biMinimize]
   Caption = 'PrzeliczPromień'
@@ -747,7 +747,7 @@ object Form1: TForm1
       Text = '148'
     end
     object ButtonZamknijProgram: TButton
-      Left = 900
+      Left = 880
       Height = 25
       Top = 360
       Width = 75
@@ -965,22 +965,6 @@ object Form1: TForm1
       TabOrder = 3
       Value = 100
     end
-    object ComboBoxListaFolii: TComboBox
-      Left = 593
-      Height = 23
-      Top = 80
-      Width = 362
-      ItemHeight = 15
-      Items.Strings = (
-        'BOPA 870/12'
-        'LDPE 600/50'
-        'PET 720/20'
-      )
-      OnSelect = ComboBoxListaFoliiSelect
-      TabOrder = 9
-      Text = 'Folia'
-      Visible = False
-    end
     object Button1: TButton
       Left = 685
       Height = 25
@@ -991,7 +975,7 @@ object Form1: TForm1
       OnClick = Button1Click
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 10
+      TabOrder = 9
     end
     object SpinEditSrenica: TSpinEdit
       Left = 620
@@ -1005,7 +989,7 @@ object Form1: TForm1
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 11
+      TabOrder = 10
       Value = 300
     end
     object LabelZSrednicy: TLabel
@@ -1017,24 +1001,6 @@ object Form1: TForm1
       Font.Height = -16
       ParentColor = False
       ParentFont = False
-    end
-    object Label16: TLabel
-      Left = 612
-      Height = 15
-      Top = 363
-      Width = 40
-      Caption = 'Label16'
-      ParentColor = False
-      Visible = False
-    end
-    object Label17: TLabel
-      Left = 717
-      Height = 15
-      Top = 364
-      Width = 40
-      Caption = 'Label17'
-      ParentColor = False
-      Visible = False
     end
     object Label18: TLabel
       Left = 600
@@ -1057,23 +1023,90 @@ object Form1: TForm1
       MinValue = 0
       OnChange = Rysuj
       ParentFont = False
-      TabOrder = 12
+      TabOrder = 11
       Value = 100
+    end
+    object ArrowPoprzednia: TArrow
+      Left = 645
+      Height = 35
+      Hint = 'wczytaj wcześniejszy'#13#10' zapamiętany wałek'
+      Top = 360
+      Width = 35
+      Constraints.MinHeight = 8
+      Constraints.MinWidth = 8
+      OnClick = ArrowPoprzedniaClick
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object ArrowKolejny: TArrow
+      Left = 770
+      Height = 35
+      Hint = 'wczytaj kolejny'#13#10' zapamiętany wałek'
+      Top = 360
+      Width = 30
+      ArrowType = atRight
+      Constraints.MinHeight = 8
+      Constraints.MinWidth = 8
+      OnClick = ArrowKolejnyClick
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object ButtonZapamietajHistoria: TButton
+      Left = 695
+      Height = 20
+      Hint = 'Zapisz dane wałka'
+      Top = 375
+      Width = 65
+      Caption = 'Zapamiętaj'
+      OnClick = ButtonZapamietajHistoriaClick
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 12
+    end
+    object MemoHistoria: TMemo
+      Left = 140
+      Height = 395
+      Top = 5
+      Width = 45
+      Lines.Strings = (
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+      )
+      TabOrder = 13
+      Visible = False
     end
   end
   object MemoPamiecOstatniego: TMemo
-    Left = 425
-    Height = 86
-    Top = 580
-    Width = 60
+    Left = 210
+    Height = 176
+    Top = 470
+    Width = 40
     TabOrder = 1
     Visible = False
   end
   object MemoBazaFolii: TMemo
-    Left = 250
-    Height = 90
-    Top = 580
-    Width = 150
+    Left = 270
+    Height = 125
+    Top = 520
+    Width = 45
     TabOrder = 2
     Visible = False
   end
