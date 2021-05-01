@@ -23,6 +23,7 @@ type
     ButtonPrzeliczZKiloNaMetry: TButton;
     ButtonPrzeliczZMetrowNaKilo: TButton;
     ComboBoxGryf: TComboBox;
+    EditNazwaFoliWalka: TEdit;
     FloatSpinEditFolia: TFloatSpinEdit;
     FloatSpinEditWagaWzorcowego: TFloatSpinEdit;
     FloatSpinEditWagaSzukanego: TFloatSpinEdit;
@@ -34,7 +35,6 @@ type
     Label13: TLabel;
     Label14: TLabel;
     Label15: TLabel;
-    Label16: TLabel;
     Label17: TLabel;
     Label18: TLabel;
     Label19: TLabel;
@@ -77,15 +77,13 @@ type
 
 var
   Form1: TForm1;
-  k ,ij : integer; // do histori
-
+  k ,ij ,iloscLini : integer; // do histori
 
 implementation
 
 {$R *.lfm}
 
 { TForm1 }
-
 
 
 procedure TForm1.ButtonZamknijProgramClick(Sender: TObject); // przycisk zamykajacy program
@@ -126,43 +124,42 @@ procedure TForm1.ButtonZapamietajHistoriaClick(Sender: TObject);
 var TF:TextFile;
   i:integer;
 begin
-   for i:=0 to 4 do
-  memohistoria.Lines.Delete(0);
+   for i:=0 to round(iloscLini*0.1)-1 do
+        memohistoria.Lines.Delete(0);
 
-  MemoHistoria.Lines.Add(floattostr(FloatSpinEditWagaWzorcowego.Value)); // zapisze wage wzorcowego
-  MemoHistoria.Lines.Add(floattostr(SpinEditMetryWzorcowego.Value));     // zapisze metry wzorcowego
-  MemoHistoria.Lines.Add( floattostr( FloatSpinEditFolia.Value ));               // zapisze ostatnia srednice foli (po lewej stronie)
-  MemoHistoria.Lines.Add(inttostr(SpinEditGilza.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
-  MemoHistoria.Lines.Add(ComboBoxGryf.Text);               // zapisze ostatnia srednice foli (po lewej stronie)
-
+      MemoHistoria.Lines.Add(floattostr(FloatSpinEditWagaWzorcowego.Value)); // zapisze wage wzorcowego
+      MemoHistoria.Lines.Add(floattostr(SpinEditMetryWzorcowego.Value));     // zapisze metry wzorcowego
+      MemoHistoria.Lines.Add( floattostr( FloatSpinEditFolia.Value ));               // zapisze ostatnia srednice foli (po lewej stronie)
+      MemoHistoria.Lines.Add(inttostr(SpinEditGilza.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
+      MemoHistoria.Lines.Add(ComboBoxGryf.Text);               // zapisze ostatnia srednice foli (po lewej stronie)
+      MemoHistoria.Lines.Add(EditNazwaFoliWalka.Text);               // zapisze nazwae foli rolki
 
   AssignFile(TF, 'historia.txt');
   ReWrite(TF);
-  for i:=0 to 49 do
+  for i:=0 to iloscLini-1 do
   begin
   Writeln(TF, MemoHistoria.Lines.ValueFromIndex[i]);
   end;
   CloseFile(TF);
-  k:=50;
-  showmessage('dane rolki zapisane waga '+floattostr(FloatSpinEditWagaWzorcowego.Value)
+  k:=iloscLini;
+  showmessage('dane rolki '+ EditNazwaFoliWalka.Text+' zapisane waga '+floattostr(FloatSpinEditWagaWzorcowego.Value)
   +' długość '+floattostr(SpinEditMetryWzorcowego.Value)
-  +' m i tak dalej ;)');
+  +' m i tak dalej ;)' );
  end;
 
 procedure TForm1.ArrowPoprzedniaClick(Sender: TObject);
  begin
    MemoHistoria.Lines.LoadFromFile('historia.txt');// do memo wczytuje plik txt
 
-   if (k>=5) then
+   if (k>=round(iloscLini*0.1)) then
    begin
-   k:=k-5;
+   k:=k-round(iloscLini*0.1);
    FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoHistoria.Lines.ValueFromIndex[k]);  // bo linia 0 to jej nazwa czyli string 'ostatnia'
    SpinEditMetryWzorcowego.Value     :=   strtoint(MemoHistoria.Lines.ValueFromIndex[k+1]);
    FloatSpinEditFolia.Value          := strtofloat(MemoHistoria.Lines.ValueFromIndex[k+2]);// srednica ostatniej miezonej rolki
    SpinEditGilza.Value               :=   strtoint(MemoHistoria.Lines.ValueFromIndex[k+3]);
    ComboBoxGryf.Text                 :=            MemoHistoria.Lines.ValueFromIndex[k+4];
-   ij:=round((50-k)/5);
-    label19.Caption:=inttostr(ij);
+   label19.Caption                   :=            MemoHistoria.Lines.ValueFromIndex[k+5];  // nazwa foli
 
   end;
 
@@ -171,18 +168,16 @@ end;
 procedure TForm1.ArrowKolejnyClick(Sender: TObject);
  begin
    MemoHistoria.Lines.LoadFromFile('historia.txt');// do memo wczytuje plik txt
-   if (k<=45 ) then
+   if (k<((iloscLini*0.1)-1) ) then
    begin
-     k:=k+5;
+     k:=k+round(iloscLini*0.1);
 
    FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoHistoria.Lines.ValueFromIndex[k]);  // bo linia 0 to jej nazwa czyli string 'ostatnia'
    SpinEditMetryWzorcowego.Value     :=   strtoint(MemoHistoria.Lines.ValueFromIndex[k+1]);
    FloatSpinEditFolia.Value          := strtofloat(MemoHistoria.Lines.ValueFromIndex[k+2]);                  // srednica ostatniej miezonej rolki
    SpinEditGilza.Value               :=   strtoint(MemoHistoria.Lines.ValueFromIndex[k+3]);
    ComboBoxGryf.Text                 :=            MemoHistoria.Lines.ValueFromIndex[k+4];
-
-    ij:=round((50-k)/5);
-    label19.Caption:=inttostr(ij);
+   label19.Caption                   :=            MemoHistoria.Lines.ValueFromIndex[k+5];  // nazwa foli
 
    end;
 
@@ -194,11 +189,13 @@ procedure TForm1.Wczytaj(Sender:TObject); // na starcie wczytuje poprzednie wart
     MemoPamiecOstatniego.Lines.LoadFromFile('ostatnia.txt');                                        // do memo wczytuje plik txt
     MemoHistoria.Lines.LoadFromFile('historia.txt');
     FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[1]);  // bo linia 0 to jej nazwa czyli string 'ostatnia'
-    SpinEditMetryWzorcowego.Value := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[2]);
-    FloatSpinEditFolia.Value := strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[3]);                  // srednica ostatniej miezonej rolki
-    SpinEditGilza.Value := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[4]);
-    ComboBoxGryf.Text  := MemoPamiecOstatniego.Lines.ValueFromIndex[5];
-    k:=50;
+    SpinEditMetryWzorcowego.Value     := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[2]);
+    FloatSpinEditFolia.Value          := strtofloat(MemoPamiecOstatniego.Lines.ValueFromIndex[3]);                  // srednica ostatniej miezonej rolki
+    SpinEditGilza.Value               := strtoint(MemoPamiecOstatniego.Lines.ValueFromIndex[4]);
+    ComboBoxGryf.Text                 := MemoPamiecOstatniego.Lines.ValueFromIndex[5];
+    label19.Caption                   :=            'ostatnia'  ;        // nazwa foli
+    iloscLini:=60; // zmienna okreslajaca ile lini w pliku txt trzymam
+    k:=iloscLini;   // k sluzy do skakania po liniach
 
 
 end;
@@ -222,7 +219,7 @@ begin
   Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[ll]);
 
   CloseFile(TF);
-  k:=50;
+  k:=60;
  end;
 
 procedure TForm1.ButtonPrzeliczZKiloNaMetryClick(Sender: TObject); // przycisk do przeliczania z kilogramow na metry

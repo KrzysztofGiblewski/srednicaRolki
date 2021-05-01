@@ -622,34 +622,49 @@ object Form1: TForm1
     end
     object Label1: TLabel
       Left = 30
-      Height = 45
+      Height = 39
       Top = 78
-      Width = 120
+      Width = 111
       BorderSpacing.Around = 30
       Caption = 'tu średnica gryfu'#13#10'-mały gryf ma 75 mm'#13#10'-duży gryf ma 148 mm'
+      Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
     end
     object Label2: TLabel
       Left = 185
-      Height = 60
+      Height = 52
       Top = 78
-      Width = 203
+      Width = 199
       BorderSpacing.Around = 30
-      Caption = 'tu mierząc od gryfu'#13#10'-dla cienkiej gilzy najczęściej 15 mm'#13#10'-dla grubej gilzy najczęściej 17 mm'#13#10'-lub dokładnie tyle ile pokazuje miarka'
-      Font.Color = clGreen
+      Caption = 'tu mierząc od napompowanego gryfu'#13#10'-dla cienkiej gilzy najczęściej 15 mm'#13#10'-dla grubej gilzy najczęściej 17 mm'#13#10'-lub dokładnie tyle ile pokazuje miarka'
+      Font.CharSet = EASTEUROPE_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
     end
     object Label3: TLabel
       Left = 440
-      Height = 60
+      Height = 52
       Top = 78
-      Width = 120
+      Width = 117
       BorderSpacing.Around = 30
       Caption = 'tu mierząc '#13#10'od gryfu '#13#10'do brzegu rolki'#13#10'bez odejmowania gilzy'
-      Font.Color = clGray
+      Font.CharSet = EASTEUROPE_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
     end
@@ -1027,11 +1042,11 @@ object Form1: TForm1
       Value = 100
     end
     object ArrowPoprzednia: TArrow
-      Left = 630
+      Left = 600
       Height = 35
       Hint = 'wczytaj wcześniejszy'#13#10' zapamiętany wałek'
-      Top = 360
-      Width = 50
+      Top = 370
+      Width = 80
       ArrowColor = clGray
       Constraints.MinHeight = 8
       Constraints.MinWidth = 8
@@ -1041,11 +1056,11 @@ object Form1: TForm1
       ShowHint = True
     end
     object ArrowKolejny: TArrow
-      Left = 770
+      Left = 795
       Height = 35
       Hint = 'wczytaj kolejny'#13#10' zapamiętany wałek'
-      Top = 360
-      Width = 50
+      Top = 370
+      Width = 65
       ArrowColor = clGray
       ArrowType = atRight
       Constraints.MinHeight = 8
@@ -1056,22 +1071,22 @@ object Form1: TForm1
       ShowHint = True
     end
     object ButtonZapamietajHistoria: TButton
-      Left = 690
+      Left = 665
       Height = 20
       Hint = 'Zapisz dane wałka, zapisuje '#13#10'tylko dane z kolorowych pól'
-      Top = 360
-      Width = 65
-      Caption = 'Zapamiętaj'
+      Top = 370
+      Width = 145
+      Caption = 'Zapamiętaj rolkę'
       OnClick = ButtonZapamietajHistoriaClick
       ParentShowHint = False
       ShowHint = True
       TabOrder = 12
     end
     object MemoHistoria: TMemo
-      Left = 140
-      Height = 395
-      Top = 5
-      Width = 45
+      Left = 35
+      Height = 230
+      Top = -85
+      Width = 950
       Lines.Strings = (
         '1'
         '1'
@@ -1094,16 +1109,9 @@ object Form1: TForm1
         '1'
         '1'
       )
+      MaxLength = 160
       TabOrder = 13
       Visible = False
-    end
-    object Label16: TLabel
-      Left = 630
-      Height = 15
-      Top = 390
-      Width = 173
-      Caption = ' poprzednia zapamiętana kolejna'
-      ParentColor = False
     end
     object Label17: TLabel
       Left = 678
@@ -1114,12 +1122,24 @@ object Form1: TForm1
       ParentColor = False
     end
     object Label19: TLabel
-      Left = 675
+      Left = 590
       Height = 15
-      Top = 365
+      Top = 350
       Width = 12
       Caption = '00'
       ParentColor = False
+    end
+    object EditNazwaFoliWalka: TEdit
+      Left = 665
+      Height = 23
+      Hint = 'tu wpisz dowolną nazwę foli'
+      Top = 387
+      Width = 145
+      MaxLength = 150
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 14
+      Text = 'NazwaFoliWalka'
     end
   end
   object MemoPamiecOstatniego: TMemo
