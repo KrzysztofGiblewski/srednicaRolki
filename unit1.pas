@@ -35,9 +35,11 @@ type
     Label13: TLabel;
     Label14: TLabel;
     Label15: TLabel;
+    Label16: TLabel;
     Label17: TLabel;
     Label18: TLabel;
     Label19: TLabel;
+    Label20: TLabel;
     LabelZSrednicy: TLabel;
     LabelWynikWagi: TLabel;
     LabelWynikMetrow: TLabel;
@@ -55,6 +57,7 @@ type
     MemoBazaFolii: TMemo;
     MemoPamiecOstatniego: TMemo;
     Panel1: TPanel;
+    SpinEditSrednicaWalka: TSpinEdit;
     SpinEditSrenica: TSpinEdit;
     SpinEditMetryWzorcowego: TSpinEdit;
     SpinEditMetrySzukanego: TSpinEdit;
@@ -67,6 +70,7 @@ type
     procedure ButtonPrzeliczZKiloNaMetryClick(Sender: TObject);
     procedure ButtonPrzeliczZMetrowNaKiloClick(Sender: TObject);
     procedure Rysuj(Sender: TObject);
+    procedure SpinEditSrednicaWalkaChange(Sender: TObject);
     procedure Zapamietaj(Sender: TObject);
     procedure Wczytaj(Sender: TObject);
   private
@@ -124,28 +128,32 @@ procedure TForm1.ButtonZapamietajHistoriaClick(Sender: TObject);
 var TF:TextFile;
   i:integer;
 begin
-   for i:=0 to 5 do
-        memohistoria.Lines.Delete(0);
+  if (MessageDlg('Zapisać walek?',mtConfirmation,[mbYes,mbNo,mbCancel],0)=mrYes) then
+   begin
+     for i:=0 to 5 do
+      memohistoria.Lines.Delete(0);
 
       MemoHistoria.Lines.Add(floattostr(FloatSpinEditWagaWzorcowego.Value)); // zapisze wage wzorcowego
       MemoHistoria.Lines.Add(floattostr(SpinEditMetryWzorcowego.Value));     // zapisze metry wzorcowego
-      MemoHistoria.Lines.Add( floattostr( FloatSpinEditFolia.Value ));               // zapisze ostatnia srednice foli (po lewej stronie)
+      MemoHistoria.Lines.Add(floattostr( FloatSpinEditFolia.Value ));               // zapisze ostatnia srednice foli (po lewej stronie)
       MemoHistoria.Lines.Add(inttostr(SpinEditGilza.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
       MemoHistoria.Lines.Add(ComboBoxGryf.Text);               // zapisze ostatnia srednice foli (po lewej stronie)
       MemoHistoria.Lines.Add(EditNazwaFoliWalka.Text);               // zapisze nazwae foli rolki
 
-  AssignFile(TF, 'historia.txt');
-  ReWrite(TF);
-  for i:=0 to 5 do
-  begin
-  Writeln(TF, MemoHistoria.Lines.ValueFromIndex[i]);
-  end;
-  CloseFile(TF);
-  k:=iloscLini;
-  showmessage('dane rolki '+ EditNazwaFoliWalka.Text+' zapisane waga '+floattostr(FloatSpinEditWagaWzorcowego.Value)
-  +' długość '+floattostr(SpinEditMetryWzorcowego.Value)
-  +' m i tak dalej ;)' );
- end;
+       AssignFile(TF, 'historia.txt');          // zapisanie do pliku tekstowego
+       ReWrite(TF);                             //nadpisanie bo usunelismy 6 pierwszych lini
+         for i:=0 to iloscLini-1 do
+          begin
+            Writeln(TF, MemoHistoria.Lines.ValueFromIndex[i]);
+          end;
+       CloseFile(TF);
+       k:=iloscLini;
+       showmessage('dane rolki '+ EditNazwaFoliWalka.Text+' zapisane waga '
+        +floattostr(FloatSpinEditWagaWzorcowego.Value)
+        +' długość '+floattostr(SpinEditMetryWzorcowego.Value)
+        +' m i tak dalej ;)' );
+   end;
+end;
 
 procedure TForm1.ArrowPoprzedniaClick(Sender: TObject);
  begin
@@ -168,7 +176,7 @@ end;
 procedure TForm1.ArrowKolejnyClick(Sender: TObject);
  begin
    MemoHistoria.Lines.LoadFromFile('historia.txt');// do memo wczytuje plik txt
-   if (k<5 ) then
+   if (k<iloscLini-6) then
    begin
      k:=k+6;
 
@@ -276,6 +284,8 @@ begin
 end;
 
 
+
+
 procedure TForm1.Rysuj(Sender: TObject);  // rysuje kola-walki folii
 var
    xgryf, ygryf, xgilza, ygilza, xfolia, yfolia, srodek,
@@ -283,6 +293,7 @@ var
   gryfgilzarozmiar, gryfgilzafoliarozmiar, gryfrozmiar, gilzarozmiar,
   foliarozmiar: double;
 begin
+
 
   gryfrozmiar := StrToInt(form1.ComboBoxGryf.Text);   // nadajemy wartosc rozmiaru gryfu
   gilzarozmiar := form1.spineditgilza.Value;   // nadajemy wartosc rozmiaru gilzy
@@ -292,6 +303,10 @@ begin
   gryfgilzafoliarozmiar := gryfrozmiar + (foliarozmiar * 2);  // bo mierze od gryfu a nie od gilzy
   form1.labelpoczatek.Caption := gryfgilzarozmiar.ToString;     // suma gryfu i gilzy
   form1.labelkoniec.Caption := gryfgilzafoliarozmiar.ToString;   // suma gryfu gilzy i foli
+
+  form1.SpinEditSrednicaWalka.Value:=gryfgilzafoliarozmiar;
+
+
   przesuniecie := 50;                                           // przesuniecie tak zeby od samego rogu nie zaczynalo
 
   xfolia := przesuniecie;
@@ -348,6 +363,22 @@ begin
   form1.Canvas.Pen.Style:=PsDash;                     // taka linia przerywana
   form1.canvas.Ellipse(xgryf, xgryf, ygryf, ygryf);   // kolo gryfu
 
+
+end;
+
+procedure TForm1.SpinEditSrednicaWalkaChange(Sender: TObject);
+var gryfrozmiar ,gilzarozmiar,foliarozmiarPromien,gryfgilzarozmiar :double;
+  foliarozmiar:integer;
+
+begin
+ gryfrozmiar := StrToInt(form1.ComboBoxGryf.Text);   // nadajemy wartosc rozmiaru gryfu
+  gilzarozmiar := form1.spineditgilza.Value;   // nadajemy wartosc rozmiaru gilzy
+  foliarozmiar:=  form1.SpinEditSrednicaWalka.Value;  // wklepana w to pole
+
+  foliarozmiarPromien := (foliarozmiar -gryfrozmiar)*0.5;
+
+
+  form1.FloatSpinEditFolia.Value:=foliarozmiarPromien;
 
 end;
 
