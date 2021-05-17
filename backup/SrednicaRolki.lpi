@@ -25,9 +25,9 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="4"/>
-      <MinorVersionNr Value="6"/>
-      <RevisionNr Value="6"/>
-      <BuildNr Value="22"/>
+      <MinorVersionNr Value="8"/>
+      <RevisionNr Value="9"/>
+      <BuildNr Value="24"/>
       <Language Value="0415"/>
       <StringTable CompanyName="KrzysztofGiblewski" LegalCopyright="KrzysztofGiblewski@gmail.com" LegalTrademarks="Krzysztofgiblewski@gmail.com" OriginalFilename="Srednica Rolki" ProductName="SrednicaRolki" ProductVersion="2.3.0.3"/>
     </VersionInfo>
@@ -87,7 +87,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -100,6 +100,9 @@
       <Item4>
         <Name Value="EStringListError"/>
       </Item4>
+      <Item5>
+        <Name Value="EConvertError"/>
+      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>

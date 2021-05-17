@@ -1,10 +1,10 @@
 object Form1: TForm1
-  Left = 341
+  Left = 287
   Height = 749
   Top = 0
   Width = 1000
   HorzScrollBar.Page = 1000
-  VertScrollBar.Page = 705
+  VertScrollBar.Page = 721
   AutoScroll = True
   BorderIcons = [biMinimize]
   Caption = 'PrzeliczPromień'
@@ -28,6 +28,37 @@ object Form1: TForm1
     ClientHeight = 405
     ClientWidth = 1030
     TabOrder = 0
+    object MemoHistoria: TMemo
+      Left = 15
+      Height = 115
+      Top = 210
+      Width = 950
+      Lines.Strings = (
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+      )
+      MaxLength = 160
+      TabOrder = 13
+      Visible = False
+    end
     object Image1: TImage
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
@@ -608,9 +639,9 @@ object Form1: TForm1
     end
     object Bevel1: TBevel
       Left = 590
-      Height = 350
+      Height = 340
       Top = 0
-      Width = 370
+      Width = 365
       Shape = bsFrame
     end
     object Bevel2: TBevel
@@ -618,7 +649,7 @@ object Form1: TForm1
       Height = 84
       Hint = 'To najlepiej przepisać z oryginalnej etykiety'#13#10'średnice trzeba zmierzyć jak rolka '#13#10'jest jeszcze nie ryszona.'
       Top = 3
-      Width = 363
+      Width = 358
       ParentShowHint = False
       Shape = bsFrame
       ShowHint = True
@@ -774,10 +805,10 @@ object Form1: TForm1
       TabOrder = 7
     end
     object SpinEditMetryWzorcowego: TSpinEdit
-      Left = 770
+      Left = 745
       Height = 29
       Hint = 'Tu przepisz z karty wałka'#13#10' ilość metrów na wałku'
-      Top = 45
+      Top = 40
       Width = 80
       Color = clAqua
       Font.CharSet = EASTEUROPE_CHARSET
@@ -819,15 +850,15 @@ object Form1: TForm1
       Left = 600
       Height = 15
       Top = 20
-      Width = 144
-      Caption = 'Waga wałka w kilogramach'
+      Width = 63
+      Caption = 'Waga wałka'
       ParentColor = False
     end
     object Label5: TLabel
-      Left = 760
+      Left = 730
       Height = 15
       Hint = 'Tu przepisz z karty wałka'
-      Top = 25
+      Top = 20
       Width = 118
       Caption = 'Ilość metrów na wałku'
       ParentColor = False
@@ -843,17 +874,17 @@ object Form1: TForm1
       TabOrder = 4
     end
     object Label8: TLabel
-      Left = 706
+      Left = 690
       Height = 15
-      Top = 59
+      Top = 50
       Width = 14
       Caption = 'Kg'
       ParentColor = False
     end
     object Label9: TLabel
-      Left = 855
+      Left = 830
       Height = 15
-      Top = 60
+      Top = 54
       Width = 11
       Caption = 'm'
       ParentColor = False
@@ -948,10 +979,10 @@ object Form1: TForm1
       ParentColor = False
     end
     object FloatSpinEditWagaWzorcowego: TFloatSpinEdit
-      Left = 615
+      Left = 600
       Height = 29
       Hint = 'Tu przepisz masę z karty wałka  lub zważoną'
-      Top = 45
+      Top = 40
       Width = 85
       Color = clAqua
       Font.Height = -16
@@ -1037,84 +1068,24 @@ object Form1: TForm1
       DecimalPlaces = 1
       Font.Height = -21
       Increment = 0.5
-      MaxValue = 9999
+      MaxValue = 999999
       MinValue = 0
       OnChange = Rysuj
       ParentFont = False
       TabOrder = 11
       Value = 100
     end
-    object ArrowPoprzednia: TArrow
-      Left = 600
-      Height = 35
-      Hint = 'wczytaj wcześniejszy'#13#10' zapamiętany wałek'
-      Top = 370
-      Width = 80
-      ArrowColor = clGray
-      Constraints.MinHeight = 8
-      Constraints.MinWidth = 8
-      OnClick = ArrowPoprzedniaClick
-      ParentShowHint = False
-      ShadowType = stNone
-      ShowHint = True
-    end
-    object ArrowKolejny: TArrow
-      Left = 795
-      Height = 35
-      Hint = 'wczytaj kolejny'#13#10' zapamiętany wałek'
-      Top = 370
-      Width = 65
-      ArrowColor = clGray
-      ArrowType = atRight
-      Constraints.MinHeight = 8
-      Constraints.MinWidth = 8
-      OnClick = ArrowKolejnyClick
-      ParentShowHint = False
-      ShadowType = stNone
-      ShowHint = True
-    end
     object ButtonZapamietajHistoria: TButton
-      Left = 665
+      Left = 385
       Height = 20
       Hint = 'Zapisz dane wałka, zapisuje '#13#10'tylko dane z kolorowych pól'
-      Top = 370
+      Top = 165
       Width = 145
       Caption = 'Zapamiętaj rolkę'
       OnClick = ButtonZapamietajHistoriaClick
       ParentShowHint = False
       ShowHint = True
       TabOrder = 12
-    end
-    object MemoHistoria: TMemo
-      Left = 50
-      Height = 115
-      Top = 175
-      Width = 950
-      Lines.Strings = (
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-        '1'
-      )
-      MaxLength = 160
-      TabOrder = 13
-      Visible = False
     end
     object Label17: TLabel
       Left = 678
@@ -1124,41 +1095,21 @@ object Form1: TForm1
       Caption = 'mm'
       ParentColor = False
     end
-    object Label19: TLabel
-      Left = 590
-      Height = 15
-      Top = 350
-      Width = 12
-      Caption = '00'
-      ParentColor = False
-    end
-    object EditNazwaFoliWalka: TEdit
-      Left = 665
-      Height = 23
-      Hint = 'tu wpisz dowolną nazwę foli'
-      Top = 387
-      Width = 145
-      MaxLength = 150
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 14
-      Text = 'NazwaFoliWalka'
-    end
     object SpinEditSrednicaWalka: TSpinEdit
-      Left = 890
+      Left = 865
       Height = 23
       Top = 55
-      Width = 60
-      MaxValue = 9999
+      Width = 78
+      MaxValue = 99999999
       OnChange = SpinEditSrednicaWalkaChange
-      TabOrder = 15
+      TabOrder = 14
     end
     object Label16: TLabel
-      Left = 875
-      Height = 15
-      Top = 40
-      Width = 78
-      Caption = 'Średnica wałka'
+      Left = 865
+      Height = 30
+      Top = 25
+      Width = 83
+      Caption = 'Średnica całego'#13#10'nowego wałka'
       ParentColor = False
     end
     object Label20: TLabel
@@ -1169,19 +1120,32 @@ object Form1: TForm1
       Caption = 'jak rolka była zapamiętana to z średnicy przelicz kilogramy'
       ParentColor = False
     end
+    object ComboBoxHistoria: TComboBox
+      Left = 320
+      Height = 21
+      Top = 140
+      Width = 270
+      AutoSelect = False
+      ItemHeight = 15
+      OnChange = ComboBoxHistoriaChange
+      OnSelect = WybierzZListyHistoria
+      Style = csOwnerDrawEditableVariable
+      TabOrder = 15
+      Text = 'Wybierz z zapisanych rolek'
+    end
   end
   object MemoPamiecOstatniego: TMemo
-    Left = 210
+    Left = 345
     Height = 176
-    Top = 470
+    Top = 545
     Width = 40
     TabOrder = 1
     Visible = False
   end
   object MemoBazaFolii: TMemo
-    Left = 270
-    Height = 125
-    Top = 520
+    Left = 430
+    Height = 160
+    Top = 550
     Width = 45
     TabOrder = 2
     Visible = False
