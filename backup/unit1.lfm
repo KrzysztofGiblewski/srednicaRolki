@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 287
-  Height = 749
+  Left = 13
+  Height = 741
   Top = 0
   Width = 1000
   HorzScrollBar.Page = 1000
@@ -8,7 +8,7 @@ object Form1: TForm1
   AutoScroll = True
   BorderIcons = [biMinimize]
   Caption = 'PrzeliczPromień'
-  ClientHeight = 732
+  ClientHeight = 724
   ClientWidth = 1000
   Color = clWhite
   OnActivate = Wczytaj
@@ -31,8 +31,8 @@ object Form1: TForm1
     object MemoHistoria: TMemo
       Left = 15
       Height = 115
-      Top = 210
-      Width = 950
+      Top = -100
+      Width = 980
       Lines.Strings = (
         '1'
         '1'
@@ -56,7 +56,7 @@ object Form1: TForm1
         '1'
       )
       MaxLength = 160
-      TabOrder = 13
+      TabOrder = 16
       Visible = False
     end
     object Image1: TImage
@@ -638,32 +638,32 @@ object Form1: TForm1
       Transparent = True
     end
     object Bevel1: TBevel
-      Left = 590
-      Height = 340
+      Left = 580
+      Height = 350
       Top = 0
-      Width = 365
+      Width = 375
       Shape = bsFrame
     end
     object Bevel2: TBevel
-      Left = 593
-      Height = 84
+      Left = 585
+      Height = 97
       Hint = 'To najlepiej przepisać z oryginalnej etykiety'#13#10'średnice trzeba zmierzyć jak rolka '#13#10'jest jeszcze nie ryszona.'
       Top = 3
-      Width = 358
+      Width = 366
       ParentShowHint = False
       Shape = bsFrame
       ShowHint = True
     end
     object Label1: TLabel
       Left = 30
-      Height = 39
-      Top = 78
-      Width = 111
+      Height = 33
+      Top = 68
+      Width = 81
       BorderSpacing.Around = 30
       Caption = 'tu średnica gryfu'#13#10'-mały gryf ma 75 mm'#13#10'-duży gryf ma 148 mm'
       Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clBlack
-      Font.Height = -11
+      Font.Height = -8
       Font.Name = 'Segoe UI'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
@@ -672,14 +672,14 @@ object Form1: TForm1
     end
     object Label2: TLabel
       Left = 185
-      Height = 52
-      Top = 78
-      Width = 199
+      Height = 44
+      Top = 68
+      Width = 139
       BorderSpacing.Around = 30
       Caption = 'tu mierząc od napompowanego gryfu'#13#10'-dla cienkiej gilzy najczęściej 15 mm'#13#10'-dla grubej gilzy najczęściej 17 mm'#13#10'-lub dokładnie tyle ile pokazuje miarka'
       Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clBlack
-      Font.Height = -11
+      Font.Height = -8
       Font.Name = 'Segoe UI'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
@@ -687,15 +687,15 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label3: TLabel
-      Left = 440
-      Height = 52
-      Top = 78
-      Width = 117
+      Left = 385
+      Height = 55
+      Top = 65
+      Width = 99
       BorderSpacing.Around = 30
-      Caption = 'tu mierząc '#13#10'od gryfu '#13#10'do brzegu rolki'#13#10'bez odejmowania gilzy'
+      Caption = 'tu mierząc od gryfu '#13#10'do brzegu rolki'#13#10'bez odejmowania gilzy'#13#10'lub wpisz w polu po prawej'#13#10'średnicę rolki'
       Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clBlack
-      Font.Height = -11
+      Font.Height = -8
       Font.Name = 'Segoe UI'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
@@ -703,28 +703,28 @@ object Form1: TForm1
       ParentFont = False
     end
     object SpinEditGilza: TSpinEdit
-      Left = 220
-      Height = 38
-      Top = 37
+      Left = 190
+      Height = 33
+      Top = 30
       Width = 50
       BorderSpacing.Around = 50
       BorderSpacing.CellAlignHorizontal = ccaLeftTop
       Color = clYellow
       Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clBlack
-      Font.Height = -21
+      Font.Height = -19
       Font.Name = 'Segoe UI'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       OnChange = Rysuj
       ParentFont = False
-      TabOrder = 0
+      TabOrder = 12
       Value = 15
     end
     object LabelPoczatek: TLabel
-      Left = 50
+      Left = 5
       Height = 71
-      Top = 155
+      Top = 160
       Width = 87
       Anchors = [akLeft, akBottom]
       Caption = '168'
@@ -736,9 +736,9 @@ object Form1: TForm1
       Transparent = False
     end
     object LabelKoniec: TLabel
-      Left = 55
+      Left = 10
       Height = 71
-      Top = 215
+      Top = 230
       Width = 87
       Anchors = [akLeft, akBottom]
       Caption = '378'
@@ -750,41 +750,49 @@ object Form1: TForm1
       Transparent = False
     end
     object Label6: TLabel
-      Left = 195
-      Height = 32
-      Top = 230
-      Width = 337
+      Left = 10
+      Height = 25
+      Top = 290
+      Width = 269
       Anchors = [akLeft, akBottom]
       Caption = 'Początkowa średnica manualnie'
       Color = clWhite
+      Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clRed
-      Font.Height = -24
+      Font.Height = -19
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
       Transparent = False
     end
     object Label7: TLabel
-      Left = 190
-      Height = 32
-      Top = 190
-      Width = 353
+      Left = 15
+      Height = 25
+      Top = 219
+      Width = 280
       Anchors = [akLeft, akBottom]
       Caption = 'Średnica tulei /Średnica końcowa'
       Color = clWhite
+      Font.CharSet = EASTEUROPE_CHARSET
       Font.Color = clGray
-      Font.Height = -24
+      Font.Height = -19
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
       Transparent = False
     end
     object ComboBoxGryf: TComboBox
-      Left = 35
-      Height = 38
-      Top = 37
+      Left = 30
+      Height = 33
+      Top = 30
       Width = 76
       Color = clGray
-      Font.Height = -21
-      ItemHeight = 30
+      Font.Height = -19
+      ItemHeight = 25
       ItemIndex = 1
       Items.Strings = (
         '75'
@@ -792,7 +800,7 @@ object Form1: TForm1
       )
       OnExit = Rysuj
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 11
       Text = '148'
     end
     object ButtonZamknijProgram: TButton
@@ -802,13 +810,13 @@ object Form1: TForm1
       Width = 75
       Caption = 'Zamknij'
       OnClick = ButtonZamknijProgramClick
-      TabOrder = 7
+      TabOrder = 14
     end
     object SpinEditMetryWzorcowego: TSpinEdit
-      Left = 745
+      Left = 835
       Height = 29
       Hint = 'Tu przepisz z karty wałka'#13#10' ilość metrów na wałku'
-      Top = 40
+      Top = 36
       Width = 80
       Color = clAqua
       Font.CharSet = EASTEUROPE_CHARSET
@@ -820,11 +828,10 @@ object Form1: TForm1
       Font.Style = [fsBold]
       Increment = 50
       MaxValue = 99999
-      OnChange = ButtonPrzeliczZKiloNaMetryClick
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 2
+      TabOrder = 1
       Value = 15050
     end
     object SpinEditMetrySzukanego: TSpinEdit
@@ -843,22 +850,22 @@ object Form1: TForm1
       Increment = 50
       MaxValue = 99999
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 7
       Value = 5000
     end
     object Label4: TLabel
-      Left = 600
+      Left = 685
       Height = 15
       Top = 20
-      Width = 63
-      Caption = 'Waga wałka'
+      Width = 150
+      Caption = 'Waga nienapoczętego wałka'
       ParentColor = False
     end
     object Label5: TLabel
-      Left = 730
+      Left = 825
       Height = 15
       Hint = 'Tu przepisz z karty wałka'
-      Top = 20
+      Top = 65
       Width = 118
       Caption = 'Ilość metrów na wałku'
       ParentColor = False
@@ -867,24 +874,24 @@ object Form1: TForm1
       Left = 620
       Height = 25
       Top = 159
-      Width = 205
+      Width = 185
       Caption = 'Przelicz ile to będzie metrow'
       Color = clCream
       OnClick = ButtonPrzeliczZKiloNaMetryClick
-      TabOrder = 4
+      TabOrder = 6
     end
     object Label8: TLabel
-      Left = 690
+      Left = 780
       Height = 15
-      Top = 50
+      Top = 46
       Width = 14
       Caption = 'Kg'
       ParentColor = False
     end
     object Label9: TLabel
-      Left = 830
+      Left = 920
       Height = 15
-      Top = 54
+      Top = 50
       Width = 11
       Caption = 'm'
       ParentColor = False
@@ -892,7 +899,7 @@ object Form1: TForm1
     object LabelWynikMetrow: TLabel
       Left = 855
       Height = 21
-      Top = 159
+      Top = 163
       Width = 54
       Caption = '5000 m'
       Font.CharSet = EASTEUROPE_CHARSET
@@ -908,7 +915,7 @@ object Form1: TForm1
     object LabelWynikWagi: TLabel
       Left = 855
       Height = 21
-      Top = 255
+      Top = 259
       Width = 46
       Caption = '100 kg'
       Font.CharSet = EASTEUROPE_CHARSET
@@ -941,15 +948,15 @@ object Form1: TForm1
       Left = 620
       Height = 25
       Top = 255
-      Width = 205
+      Width = 185
       Caption = 'Policz ile to bedzie kilo'
       OnClick = ButtonPrzeliczZMetrowNaKiloClick
-      TabOrder = 6
+      TabOrder = 8
     end
     object Label12: TLabel
-      Left = 600
+      Left = 595
       Height = 15
-      Top = 185
+      Top = 190
       Width = 17
       Caption = 'lub'
       ParentColor = False
@@ -979,21 +986,20 @@ object Form1: TForm1
       ParentColor = False
     end
     object FloatSpinEditWagaWzorcowego: TFloatSpinEdit
-      Left = 600
+      Left = 690
       Height = 29
       Hint = 'Tu przepisz masę z karty wałka  lub zważoną'
-      Top = 40
+      Top = 36
       Width = 85
       Color = clAqua
       Font.Height = -16
       Font.Style = [fsBold]
       MaxValue = 9999
       MinValue = 0
-      OnChange = ButtonPrzeliczZKiloNaMetryClick
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 1
+      TabOrder = 0
       Value = 300.5
     end
     object FloatSpinEditWagaSzukanego: TFloatSpinEdit
@@ -1011,40 +1017,39 @@ object Form1: TForm1
       MaxValue = 999
       MinValue = 0
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 5
       Value = 100
     end
     object Button1: TButton
-      Left = 705
+      Left = 710
       Height = 25
       Hint = 'liczy mase wałka ze średnicy ściągniętej rolki. '
-      Top = 310
-      Width = 145
+      Top = 315
+      Width = 140
       Caption = 'Licz mase z Średnicy rolki'
       OnClick = Button1Click
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 9
+      TabOrder = 10
     end
     object SpinEditSrenica: TSpinEdit
-      Left = 620
+      Left = 615
       Height = 29
       Hint = 'tu wpisz średnice ściągniętego wałka'#13#10' punktem odniesienia do przeliczenia'#13#10' jest początkowa  średnica Całego wałka'#13#10' (czerwone pole) którym operując możemy'#13#10' na przykład spisać wymiar (średnice) z nie '#13#10' napoczętej rolki identycznego materiału.'
-      Top = 307
-      Width = 55
+      Top = 315
+      Width = 60
       Font.Height = -16
       MaxValue = 9999
-      OnChange = Button1Click
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 10
+      TabOrder = 9
       Value = 300
     end
     object LabelZSrednicy: TLabel
-      Left = 860
+      Left = 905
       Height = 21
-      Top = 310
+      Top = 319
       Width = 30
       Caption = '0 kg'
       Font.Height = -16
@@ -1052,7 +1057,7 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label18: TLabel
-      Left = 600
+      Left = 595
       Height = 15
       Top = 285
       Width = 17
@@ -1060,78 +1065,121 @@ object Form1: TForm1
       ParentColor = False
     end
     object FloatSpinEditFolia: TFloatSpinEdit
-      Left = 445
-      Height = 38
-      Top = 37
+      Left = 385
+      Height = 33
+      Top = 30
       Width = 87
       Color = clRed
       DecimalPlaces = 1
-      Font.Height = -21
+      Font.Height = -19
       Increment = 0.5
       MaxValue = 999999
       MinValue = 0
       OnChange = Rysuj
       ParentFont = False
-      TabOrder = 11
+      TabOrder = 13
       Value = 100
     end
     object ButtonZapamietajHistoria: TButton
-      Left = 385
-      Height = 20
+      Left = 390
+      Height = 25
       Hint = 'Zapisz dane wałka, zapisuje '#13#10'tylko dane z kolorowych pól'
-      Top = 165
-      Width = 145
+      Top = 134
+      Width = 175
       Caption = 'Zapamiętaj rolkę'
       OnClick = ButtonZapamietajHistoriaClick
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 12
+      TabOrder = 4
     end
     object Label17: TLabel
-      Left = 678
+      Left = 685
       Height = 15
-      Top = 316
+      Top = 329
       Width = 22
       Caption = 'mm'
       ParentColor = False
     end
     object SpinEditSrednicaWalka: TSpinEdit
-      Left = 865
-      Height = 23
-      Top = 55
+      Left = 595
+      Height = 27
+      Top = 36
       Width = 78
-      MaxValue = 99999999
+      Font.CharSet = EASTEUROPE_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      MaxValue = 999999999
       OnChange = SpinEditSrednicaWalkaChange
-      TabOrder = 14
+      ParentFont = False
+      TabOrder = 2
     end
     object Label16: TLabel
-      Left = 865
+      Left = 595
       Height = 30
-      Top = 25
-      Width = 83
-      Caption = 'Średnica całego'#13#10'nowego wałka'
+      Top = 65
+      Width = 117
+      Caption = 'Średnica całego'#13#10'nienapoczętego wałka'
+      Font.Color = clRed
       ParentColor = False
+      ParentFont = False
     end
     object Label20: TLabel
       Left = 623
       Height = 15
-      Top = 290
+      Top = 295
       Width = 306
       Caption = 'jak rolka była zapamiętana to z średnicy przelicz kilogramy'
       ParentColor = False
     end
     object ComboBoxHistoria: TComboBox
-      Left = 320
+      Left = 160
       Height = 21
-      Top = 140
-      Width = 270
+      Top = 163
+      Width = 405
       AutoSelect = False
       ItemHeight = 15
       OnChange = ComboBoxHistoriaChange
       OnSelect = WybierzZListyHistoria
       Style = csOwnerDrawEditableVariable
-      TabOrder = 15
+      TabOrder = 3
       Text = 'Wybierz z zapisanych rolek'
+    end
+    object ButtonPrzeliczZInnejSzero: TButton
+      Left = 185
+      Height = 20
+      Top = 188
+      Width = 175
+      Caption = 'Przelicz masę z innej szerokości'
+      OnClick = ButtonPrzeliczZInnejSzeroClick
+      TabOrder = 15
+    end
+    object Button2: TButton
+      Left = 367
+      Height = 20
+      Top = 188
+      Width = 170
+      Caption = 'Przepisz wynik do pola Waga'
+      OnClick = Button2Click
+      TabOrder = 17
+    end
+    object Bevel3: TBevel
+      Left = 620
+      Height = 80
+      Top = 195
+      Width = 331
+      Anchors = [akTop, akBottom]
+      Shape = bsTopLine
+    end
+    object Bevel4: TBevel
+      Left = 620
+      Height = 15
+      Top = 290
+      Width = 331
+      Shape = bsTopLine
     end
   end
   object MemoPamiecOstatniego: TMemo

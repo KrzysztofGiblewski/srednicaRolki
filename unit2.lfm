@@ -1,0 +1,90 @@
+object Form2: TForm2
+  Left = 111
+  Height = 77
+  Top = 355
+  Width = 464
+  BorderIcons = [biSystemMenu]
+  Caption = 'Przelicz na podstawie identycznej folji ale innej szerokosci'
+  ClientHeight = 77
+  ClientWidth = 464
+  LCLVersion = '2.0.6.0'
+  Visible = True
+  object Label1: TLabel
+    Left = 5
+    Height = 15
+    Top = 5
+    Width = 441
+    Caption = 'Wpisz szerokość wzorcowego wałka i szerokość wałka którego masę mam przeliczyć'
+    ParentColor = False
+  end
+  object SpinEditOrginalny: TSpinEdit
+    Left = 10
+    Height = 23
+    Top = 28
+    Width = 75
+    MaxValue = 99999
+    TabOrder = 0
+  end
+  object SpinEditLiczony: TSpinEdit
+    Left = 145
+    Height = 23
+    Top = 28
+    Width = 75
+    MaxValue = 99999
+    TabOrder = 1
+  end
+  object Label2: TLabel
+    Left = 10
+    Height = 15
+    Top = 50
+    Width = 119
+    Caption = 'Szerokość orginalnego'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 145
+    Height = 15
+    Top = 50
+    Width = 120
+    Caption = 'Szerokość wyliczanego'
+    ParentColor = False
+  end
+  object ButtonPrzeLiczMaseRolki: TButton
+    Left = 235
+    Height = 25
+    Top = 25
+    Width = 140
+    Caption = 'Licz masę rolki'
+    OnClick = ButtonPrzeLiczMaseRolkiClick
+    TabOrder = 2
+  end
+  object Label4: TLabel
+    Left = 315
+    Height = 15
+    Top = 55
+    Width = 31
+    Caption = 'wynik'
+    ParentColor = False
+  end
+  object FloatSpinEditMasaOryginalu: TFloatSpinEdit
+    Left = 295
+    Height = 23
+    Top = 28
+    Width = 110
+    MaxValue = 99999
+    MinValue = 0
+    OnChange = FloatSpinEditMasaOryginaluChange
+    TabOrder = 3
+    Value = 0
+    Visible = False
+  end
+  object Button1: TButton
+    Left = 385
+    Height = 25
+    Top = 25
+    Width = 65
+    Caption = 'Ukryj'
+    OnClick = Button1Click
+    TabOrder = 4
+  end
+end

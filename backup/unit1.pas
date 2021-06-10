@@ -1,4 +1,4 @@
-unit Unit1;
+unit Unit1 ;
 
 {$mode objfpc}{$H+}
 
@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin,
-  ExtCtrls, Arrow;
+  ExtCtrls,unit2 ;
 
 type
 
@@ -15,7 +15,11 @@ type
   TForm1 = class(TForm)
     Bevel1: TBevel;
     Bevel2: TBevel;
+    Bevel3: TBevel;
+    Bevel4: TBevel;
     Button1: TButton;
+    Button2: TButton;
+    ButtonPrzeliczZInnejSzero: TButton;
     ButtonZapamietajHistoria: TButton;
     ButtonZamknijProgram: TButton;
     ButtonPrzeliczZKiloNaMetry: TButton;
@@ -60,6 +64,8 @@ type
     SpinEditMetrySzukanego: TSpinEdit;
     SpinEditGilza: TSpinEdit;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure ButtonPrzeliczZInnejSzeroClick(Sender: TObject);
     procedure ButtonZapamietajHistoriaClick(Sender: TObject);
     procedure ButtonZamknijProgramClick(Sender: TObject);
     procedure ButtonPrzeliczZKiloNaMetryClick(Sender: TObject);
@@ -78,6 +84,7 @@ type
 
 var
   Form1: TForm1;
+
   k ,ij ,iloscLini : integer; // do histori
 
 implementation
@@ -120,11 +127,30 @@ begin
   form1.ButtonPrzeliczZKiloNaMetry.Click;
 end;
 
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+     form1.FloatSpinEditWagaWzorcowego.Value:=unit2.wagaWynik;
+     ComboBoxHistoria.Caption:='szacowany wynik';
+     form2.Hide;
+end;
+
+procedure TForm1.ButtonPrzeliczZInnejSzeroClick(Sender: TObject);
+begin
+  Form2.Show;
+  form2.SpinEditOrginalny.Value:=100;
+  form2.SpinEditLiczony.Value:=50;
+  form2.FloatSpinEditMasaOryginalu.Value:=form1.FloatSpinEditWagaWzorcowego.Value;
+
+
+
+end;
+
 procedure TForm1.ButtonZapamietajHistoriaClick(Sender: TObject);
 var TF:TextFile;
   i,kk:integer;
 begin
-  if (MessageDlg('Zapisać walek?',mtConfirmation,[mbYes,mbNo,mbCancel],0)=mrYes) then
+  if (MessageDlg('Zapisać wałek: "'+ComboBoxHistoria.Caption +'" ?',mtConfirmation,[mbYes,mbNo,mbCancel],0)=mrYes) then
    begin
      for i:=0 to 5 do
       memohistoria.Lines.Delete(0);
@@ -137,21 +163,23 @@ begin
       MemoHistoria.Lines.Add(ComboBoxHistoria.Text);               // zapisze nazwae foli rolki
 
        AssignFile(TF, 'historia.txt');          // zapisanie do pliku tekstowego
+       try
        ReWrite(TF);                             //nadpisanie bo usunelismy 6 pierwszych lini
          for i:=0 to iloscLini-1 do
-          begin
-            Writeln(TF, MemoHistoria.Lines.ValueFromIndex[i]);
-          end;
+           Writeln(TF, MemoHistoria.Lines.ValueFromIndex[i]);
+         finally
        CloseFile(TF);
+       end;
+
        k:=iloscLini;
-       showmessage('dane rolki '+ ComboBoxHistoria.Text+' zapisane waga '
-        +floattostr(FloatSpinEditWagaWzorcowego.Value)
-        +' długość '+floattostr(SpinEditMetryWzorcowego.Value)
-        +' m i tak dalej ;)' );
+       showmessage('Dane rolki: "'+ ComboBoxHistoria.Text+'" zapisane waga: '
+                   +floattostr(FloatSpinEditWagaWzorcowego.Value)
+                   +' długość: '+floattostr(SpinEditMetryWzorcowego.Value)
+                   +' m i tak dalej ;)' );
        form1.ComboBoxHistoria.Clear;
         for kk:=0 to iloscLini-1 do
-   if( kk mod 6 =0) then
-   form1.ComboBoxHistoria.Items.Add(MemoHistoria.Lines.ValueFromIndex[kk+5]);
+        if( kk mod 6 =0) then
+        form1.ComboBoxHistoria.Items.Add(MemoHistoria.Lines.ValueFromIndex[kk+5]);
         form1.ComboBoxHistoria.Text:=MemoHistoria.Lines.ValueFromIndex[iloscLini-1];
 
    end;
@@ -190,10 +218,13 @@ begin
 
   AssignFile(TF, 'ostatnia.txt');
   ReWrite(TF);
-  for ll:=0 to 5 do
-  Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[ll]);
+    try
+     for ll:=0 to 5 do
+      Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[ll]);
+    finally
+     CloseFile(TF);
+  end;
 
-  CloseFile(TF);
   k:=iloscLini;      // tu robie skok na koniec pamieci czyli koniec pliku tekstowego
  end;
 
@@ -265,14 +296,14 @@ var
 begin
 
 
-  gryfrozmiar := StrToInt(form1.ComboBoxGryf.Text);   // nadajemy wartosc rozmiaru gryfu
-  gilzarozmiar := form1.spineditgilza.Value;   // nadajemy wartosc rozmiaru gilzy
-  foliarozmiar := form1.FloatSpinEditFolia.Value;    // nadajemy wartosc rozmiaru folii
+  gryfrozmiar := StrToInt(form1.ComboBoxGryf.Text);     // nadajemy wartosc rozmiaru gryfu
+  gilzarozmiar := form1.spineditgilza.Value;            // nadajemy wartosc rozmiaru gilzy
+  foliarozmiar := form1.FloatSpinEditFolia.Value;       // nadajemy wartosc rozmiaru folii
 
-  gryfgilzarozmiar := gryfrozmiar + (gilzarozmiar * 2);  // czyli grubosc gryfu plus dwie scianki gilzy
+  gryfgilzarozmiar := gryfrozmiar + (gilzarozmiar * 2);       // czyli grubosc gryfu plus dwie scianki gilzy
   gryfgilzafoliarozmiar := gryfrozmiar + (foliarozmiar * 2);  // bo mierze od gryfu a nie od gilzy
-  form1.labelpoczatek.Caption := gryfgilzarozmiar.ToString;     // suma gryfu i gilzy
-  form1.labelkoniec.Caption := gryfgilzafoliarozmiar.ToString;   // suma gryfu gilzy i foli
+  form1.labelpoczatek.Caption := gryfgilzarozmiar.ToString;   // suma gryfu i gilzy
+  form1.labelkoniec.Caption := gryfgilzafoliarozmiar.ToString;// suma gryfu gilzy i foli
 
   form1.SpinEditSrednicaWalka.Value:=gryfgilzafoliarozmiar;
 
@@ -291,8 +322,8 @@ begin
   ygryf := srodek + round(0.5 * gryfrozmiar);
 
   form1.panel1.Width := form1.Width;
-  form1.Canvas.Pen.Width:=1;  // taka linia grubosc 1
-  form1.Canvas.Pen.Style:=PsSolid;  // taka linia ciagla
+  form1.Canvas.Pen.Width:=1;          // taka linia grubosc 1
+  form1.Canvas.Pen.Style:=PsSolid;    // taka linia ciagla
   form1.canvas.Pen.color := clblack;  // kolor czarny
 
   form1.Canvas.Brush.Color := clwhite;
@@ -313,16 +344,16 @@ begin
   form1.Canvas.Brush.Color := clyellow;      // zmiana koloru na gilze
   form1.canvas.Ellipse(xgilza, xgilza, ygilza, ygilza);  // kolo gilzy
 
-  form1.Canvas.Pen.Width:=1;  // taka linia grubosc 1
-  form1.Canvas.Pen.Style:=PsSolid;  // taka linia ciagla
-  form1.canvas.Pen.color := clblack;  // kolor czarny
+  form1.Canvas.Pen.Width:=1;             // taka linia grubosc 1
+  form1.Canvas.Pen.Style:=PsSolid;       // taka linia ciagla
+  form1.canvas.Pen.color := clblack;     // kolor czarny
   form1.Canvas.Brush.Color := clblack;
 
   form1.Canvas.Line(xgilza, srodek + 50, xgilza, 20);   // lewa linia gilzy
-  form1.Canvas.Line(xgilza, 30, ygilza, 30);      // przekatna gilzy
+  form1.Canvas.Line(xgilza, 30, ygilza, 30);            // przekatna gilzy
   form1.Canvas.Line(ygilza, srodek + 50, ygilza, 20);   // prawa linia gilzy
   form1.Canvas.Polygon([Point(xgilza, 30), Point(xgilza + 5, 25),     Point(xgilza + 5, 35)]);   // lewy trujkacik na koncu lini
-  form1.Canvas.Polygon([Point(ygilza, 30), Point(ygilza - 5, 25),     Point(ygilza - 5, 35)]);     // prawy trujkacik na koncu lini
+  form1.Canvas.Polygon([Point(ygilza, 30), Point(ygilza - 5, 25),     Point(ygilza - 5, 35)]);   // prawy trujkacik na koncu lini
 
   form1.Canvas.Brush.Color := clgray;
   form1.Canvas.Font.Color := clwhite;
@@ -351,9 +382,9 @@ end;
 procedure TForm1.WybierzZListyHistoria(Sender: TObject);
 begin
   k:=form1.ComboBoxHistoria.ItemIndex*6;
-   FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoHistoria.Lines.ValueFromIndex[k]);  // bo linia 0 to jej nazwa czyli string 'ostatnia'
+   FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoHistoria.Lines.ValueFromIndex[k]);     // bo linia 0 to jej nazwa czyli string 'ostatnia'
    SpinEditMetryWzorcowego.Value     :=   strtoint(MemoHistoria.Lines.ValueFromIndex[k+1]);
-   FloatSpinEditFolia.Value          := strtofloat(MemoHistoria.Lines.ValueFromIndex[k+2]);// srednica ostatniej miezonej rolki
+   FloatSpinEditFolia.Value          := strtofloat(MemoHistoria.Lines.ValueFromIndex[k+2]);   // srednica ostatniej miezonej rolki
    SpinEditGilza.Value               :=   strtoint(MemoHistoria.Lines.ValueFromIndex[k+3]);
    ComboBoxGryf.Text                 :=            MemoHistoria.Lines.ValueFromIndex[k+4];
 
