@@ -17,11 +17,12 @@ type
     Bevel2: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
-    Button1: TButton;
-    Button2: TButton;
+    ButtonLiczZSrednicy: TButton;
+    ButtonPrzepiszWynik: TButton;
     ButtonPrzeliczZInnejSzero: TButton;
-    ButtonZapamietajHistoria: TButton;
     ButtonZamknijProgram: TButton;
+    ButtonZamknijProgram1: TButton;
+    ButtonZapamietajHistoria: TButton;
     ButtonPrzeliczZKiloNaMetry: TButton;
     ButtonPrzeliczZMetrowNaKilo: TButton;
     ComboBoxHistoria: TComboBox;
@@ -63,14 +64,15 @@ type
     SpinEditMetryWzorcowego: TSpinEdit;
     SpinEditMetrySzukanego: TSpinEdit;
     SpinEditGilza: TSpinEdit;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure ButtonLiczZSrednicyClick(Sender: TObject);
+    procedure ButtonPrzepiszWynikClick(Sender: TObject);
     procedure ButtonPrzeliczZInnejSzeroClick(Sender: TObject);
     procedure ButtonZapamietajHistoriaClick(Sender: TObject);
     procedure ButtonZamknijProgramClick(Sender: TObject);
     procedure ButtonPrzeliczZKiloNaMetryClick(Sender: TObject);
     procedure ButtonPrzeliczZMetrowNaKiloClick(Sender: TObject);
-    procedure ComboBoxHistoriaChange(Sender: TObject);
+    procedure FloatSpinEditWagaWzorcowegoChange(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure Rysuj(Sender: TObject);
     procedure SpinEditSrednicaWalkaChange(Sender: TObject);
     procedure WybierzZListyHistoria(Sender: TObject);
@@ -100,49 +102,67 @@ begin
    application.Terminate;
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.ButtonLiczZSrednicyClick(Sender: TObject);
 var poleCalaRolka , poleResztaRolka,srednicaLiczonej,gryfgilzarozmiar,
 gryfgilzafoliarozmiar,gilzarozmiar,foliarozmiar,gryfrozmiar ,
 gramaturaWzoru, masaCalejRolki,masaResztyWalka,
 promienCalej, promienReszty, promienGilzy, pi:double;
 begin
-  masaCalejRolki:=form1.FloatSpinEditWagaWzorcowego.Value;
-  gryfrozmiar := StrToInt(form1.ComboBoxGryf.Text);   // nadajemy wartosc rozmiaru gryfu
-  gilzarozmiar := form1.spineditgilza.Value;   // nadajemy wartosc rozmiaru gilzy
-  foliarozmiar := form1.FloatSpinEditFolia.Value;    // nadajemy wartosc rozmiaru folii
-  srednicaLiczonej:=form1.SpinEditSrenica.Value; // wpisywana recznie w panelu
-  gryfgilzarozmiar := gryfrozmiar + (gilzarozmiar * 2);  // czyli grubosc gryfu plus dwie scianki gilzy
+  masaCalejRolki        := form1.FloatSpinEditWagaWzorcowego.Value;
+  gryfrozmiar           := StrToInt(form1.ComboBoxGryf.Text);   // nadajemy wartosc rozmiaru gryfu
+  gilzarozmiar          := form1.spineditgilza.Value;   // nadajemy wartosc rozmiaru gilzy
+  foliarozmiar          := form1.FloatSpinEditFolia.Value;    // nadajemy wartosc rozmiaru folii
+  srednicaLiczonej      := form1.SpinEditSrenica.Value; // wpisywana recznie w panelu
+  gryfgilzarozmiar      := gryfrozmiar + (gilzarozmiar * 2);  // czyli grubosc gryfu plus dwie scianki gilzy
   gryfgilzafoliarozmiar := gryfrozmiar + (foliarozmiar * 2);  // bo mierze od gryfu a nie od gilzy
-  promienCalej:=gryfgilzafoliarozmiar*0.5;
-  promienReszty:=  srednicaLiczonej*0.5;
-  promienGilzy   :=gryfgilzarozmiar*0.5;
-  pi:=3.14159;
-  poleCalaRolka :=(pi*(promienCalej*promienCalej))-(pi*(promienGilzy*promienGilzy));
-  poleResztaRolka:=(pi*(promienReszty*promienReszty))-(pi*(promienGilzy*promienGilzy));
+  promienCalej          := gryfgilzafoliarozmiar*0.5;
+  promienReszty         := srednicaLiczonej*0.5;
+  promienGilzy          := gryfgilzarozmiar*0.5;
+  pi                    := 3.14159;
+  poleCalaRolka         := (pi*(promienCalej*promienCalej))-(pi*(promienGilzy*promienGilzy));
+  poleResztaRolka       := (pi*(promienReszty*promienReszty))-(pi*(promienGilzy*promienGilzy));
 
-  gramaturaWzoru:=masaCalejRolki/poleCalaRolka;   // przeliczam gramature czyli mase jednostki folii
-  masaResztyWalka:=poleResztaRolka* gramaturaWzoru;
+  gramaturaWzoru        :=masaCalejRolki/poleCalaRolka;   // przeliczam gramature czyli mase jednostki folii
+  masaResztyWalka       :=poleResztaRolka* gramaturaWzoru;
   LabelZSrednicy.Caption:=FloatToStrF(masaResztyWalka, fffixed, 8, 2) +' kg';
   form1.FloatSpinEditWagaSzukanego.Value:=masaResztyWalka;
   form1.ButtonPrzeliczZKiloNaMetry.Click;
 end;
 
-
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.ButtonPrzepiszWynikClick(Sender: TObject);
 begin
      form1.FloatSpinEditWagaWzorcowego.Value:=unit2.wagaWynik;
-     ComboBoxHistoria.Caption:='szacowany wynik';
+     //ComboBoxHistoria.Caption:='szacowany wynik';
      form2.Hide;
 end;
 
 procedure TForm1.ButtonPrzeliczZInnejSzeroClick(Sender: TObject);
+var TF:TextFile;
+  ll:integer;
 begin
   Form2.Show;
   form2.SpinEditOrginalny.Value:=100;
   form2.SpinEditLiczony.Value:=50;
   form2.FloatSpinEditMasaOryginalu.Value:=form1.FloatSpinEditWagaWzorcowego.Value;
 
+  MemoPamiecOstatniego.Lines.Clear;
+  MemoPamiecOstatniego.Lines.Add('ostatnia');
+  MemoPamiecOstatniego.Lines.Add(floattostr(FloatSpinEditWagaWzorcowego.Value)); // zapisze wage wzorcowego
+  MemoPamiecOstatniego.Lines.Add(floattostr(SpinEditMetryWzorcowego.Value));     // zapisze metry wzorcowego
+  MemoPamiecOstatniego.Lines.Add( floattostr( FloatSpinEditFolia.Value ));               // zapisze ostatnia srednice foli (po lewej stronie)
+  MemoPamiecOstatniego.Lines.Add(inttostr(SpinEditGilza.Value));               // zapisze ostatnia srednice foli (po lewej stronie)
+  MemoPamiecOstatniego.Lines.Add(ComboBoxGryf.Text);               // zapisze ostatnia srednice foli (po lewej stronie)
 
+  AssignFile(TF, 'ostatnia.txt');
+  ReWrite(TF);
+    try
+     for ll:=0 to 5 do
+      Writeln(TF, MemoPamiecOstatniego.Lines.ValueFromIndex[ll]);
+    finally
+     CloseFile(TF);
+  end;
+
+  k:=iloscLini;      // tu robie skok na koniec pamieci czyli koniec pliku tekstowego
 
 end;
 
@@ -184,7 +204,6 @@ begin
 
    end;
 end;
-
 
 procedure TForm1.Wczytaj(Sender:TObject); // na starcie wczytuje poprzednie wartosci do programu z pliku ostatnie.txt
  var kk:integer;
@@ -281,26 +300,24 @@ begin
 
 end;
 
-procedure TForm1.ComboBoxHistoriaChange(Sender: TObject);
-begin
-
-end;
-
-
 procedure TForm1.Rysuj(Sender: TObject);  // rysuje kola-walki folii
 var
    xgryf, ygryf, xgilza, ygilza, xfolia, yfolia, srodek,
-  przesuniecie: integer;
+  przesuniecie ,wysSredFoli, wysSredGilzy, wysPromFoli, wysPromGilzy: integer;
   gryfgilzarozmiar, gryfgilzafoliarozmiar, gryfrozmiar, gilzarozmiar,
-  foliarozmiar: double;
+  foliarozmiar, skala: double;
 begin
+  skala        :=0.3;     // jeszcze nie zastosowana
+  wysSredFoli  := 10;     // wysokosc lini poziomych
+  wysSredGilzy := 40;     // wysokosc lini poziomych
+  wysPromFoli  := 115;     // wysokosc lini poziomych
+  wysPromGilzy := 80;    // wysokosc lini poziomych
+  przesuniecie := 52;     // przesuniecie tak zeby od samego rogu nie zaczynalo
 
-
-  gryfrozmiar := StrToInt(form1.ComboBoxGryf.Text);     // nadajemy wartosc rozmiaru gryfu
-  gilzarozmiar := form1.spineditgilza.Value;            // nadajemy wartosc rozmiaru gilzy
-  foliarozmiar := form1.FloatSpinEditFolia.Value;       // nadajemy wartosc rozmiaru folii
-
-  gryfgilzarozmiar := gryfrozmiar + (gilzarozmiar * 2);       // czyli grubosc gryfu plus dwie scianki gilzy
+  gryfrozmiar  := StrToInt(form1.ComboBoxGryf.Text);          // nadajemy wartosc rozmiaru gryfu
+  gilzarozmiar := form1.spineditgilza.Value;                  // nadajemy wartosc rozmiaru gilzy
+  foliarozmiar := form1.FloatSpinEditFolia.Value;             // nadajemy wartosc rozmiaru folii
+    gryfgilzarozmiar := gryfrozmiar + (gilzarozmiar * 2);     // czyli grubosc gryfu plus dwie scianki gilzy
   gryfgilzafoliarozmiar := gryfrozmiar + (foliarozmiar * 2);  // bo mierze od gryfu a nie od gilzy
   form1.labelpoczatek.Caption := gryfgilzarozmiar.ToString;   // suma gryfu i gilzy
   form1.labelkoniec.Caption := gryfgilzafoliarozmiar.ToString;// suma gryfu gilzy i foli
@@ -308,7 +325,6 @@ begin
   form1.SpinEditSrednicaWalka.Value:=gryfgilzafoliarozmiar;
 
 
-  przesuniecie := 50;                                           // przesuniecie tak zeby od samego rogu nie zaczynalo
 
   xfolia := przesuniecie;
   yfolia := xfolia + round(gryfgilzafoliarozmiar);
@@ -318,8 +334,8 @@ begin
   xgilza := srodek - round(gilzarozmiar + (0.5 * gryfrozmiar));
   ygilza := srodek + round(gilzarozmiar + (0.5 * gryfrozmiar));
 
-  xgryf := srodek - round(0.5 * gryfrozmiar);
-  ygryf := srodek + round(0.5 * gryfrozmiar);
+  xgryf  := srodek - round(0.5 * gryfrozmiar);
+  ygryf  := srodek + round(0.5 * gryfrozmiar);
 
   form1.panel1.Width := form1.Width;
   form1.Canvas.Pen.Width:=1;          // taka linia grubosc 1
@@ -331,13 +347,17 @@ begin
   form1.Canvas.Brush.Color := clred;
   form1.canvas.Pen.color := clRed;
   form1.canvas.Ellipse(xfolia, xfolia, yfolia, yfolia);   // kolo folia
-  form1.Canvas.Line(xfolia, srodek + 80, xfolia, 0);      // lewa linia foli
-  form1.Canvas.Line(xfolia, 10, yfolia, 10);              // przekatna foli
-  form1.Canvas.Line(yfolia, srodek + 80, yfolia, 0);      // prawa linia foli
+  form1.Canvas.Line(xfolia, srodek + 80, xfolia, wysSredFoli-10);      // lewa linia foli
+  form1.Canvas.Line(xfolia+2, wysSredFoli, yfolia-2, wysSredFoli);              // przekatna foli
+  form1.Canvas.Line(yfolia, srodek + 80, yfolia, wysSredFoli-10);      // prawa linia foli
   form1.Canvas.Font.Size := 12;
-  form1.Canvas.TextOut(round(srodek - foliarozmiar * 0.3), 0,    gryfgilzafoliarozmiar.ToString);                                // wymiary
-  form1.Canvas.Polygon([Point(xfolia, 10), Point(xfolia + 5, 5), Point(xfolia + 5, 15)]);  // lewy trujkacik na koncu lini
-  form1.Canvas.Polygon([Point(yfolia, 10), Point(yfolia - 5, 5), Point(yfolia - 5, 15)]);  // prawy trujkacik na koncu lini
+  form1.Canvas.Brush.Color := clNone;                                // kolorek gryfu
+  form1.Canvas.Font.Color := clRed;
+  form1.Canvas.TextOut(round(srodek - foliarozmiar * 0.3), -6, 'początkowa średnica '
+                       +   gryfgilzafoliarozmiar.ToString);
+  form1.Canvas.Brush.Color := clred;
+  form1.Canvas.Polygon([Point(xfolia+2, wysSredFoli), Point(xfolia + 7, wysSredFoli-5), Point(xfolia + 7, wysSredFoli+5)]);  // lewy trujkacik na koncu lini
+  form1.Canvas.Polygon([Point(yfolia-2, wysSredFoli), Point(yfolia - 7, wysSredFoli-5), Point(yfolia - 7, wysSredFoli+5)]);  // prawy trujkacik na koncu lini
 
 
   form1.canvas.Pen.color := clyellow;        // zmiana koloru na gilze
@@ -349,20 +369,61 @@ begin
   form1.canvas.Pen.color := clblack;     // kolor czarny
   form1.Canvas.Brush.Color := clblack;
 
-  form1.Canvas.Line(xgilza, srodek + 50, xgilza, 20);   // lewa linia gilzy
-  form1.Canvas.Line(xgilza, 30, ygilza, 30);            // przekatna gilzy
-  form1.Canvas.Line(ygilza, srodek + 50, ygilza, 20);   // prawa linia gilzy
-  form1.Canvas.Polygon([Point(xgilza, 30), Point(xgilza + 5, 25),     Point(xgilza + 5, 35)]);   // lewy trujkacik na koncu lini
-  form1.Canvas.Polygon([Point(ygilza, 30), Point(ygilza - 5, 25),     Point(ygilza - 5, 35)]);   // prawy trujkacik na koncu lini
+  form1.Canvas.Line(xgilza+1, srodek + 50, xgilza+1, wysSredGilzy-10);   // lewa linia gilzy
+  form1.Canvas.Line(xgilza+2, wysSredGilzy, ygilza-2, wysSredGilzy);            // przekatna gilzy
+  form1.Canvas.Line(ygilza, srodek + 50, ygilza, wysSredGilzy-10);   // prawa linia gilzy
+  form1.Canvas.Polygon([Point(xgilza+2, wysSredGilzy), Point(xgilza + 7, wysSredGilzy-5),     Point(xgilza + 7, wysSredGilzy+5)]);   // lewy trujkacik na koncu lini
+  form1.Canvas.Polygon([Point(ygilza-2, wysSredGilzy), Point(ygilza - 7, wysSredGilzy-5),     Point(ygilza - 7, wysSredGilzy+5)]);   // prawy trujkacik na koncu lini
+
+  form1.Canvas.Pen.Color:=clWhite;                     // kolorek przeswitu
+  form1.Canvas.Brush.Color := clWhite;
+
+  form1.canvas.Ellipse(xgryf-5, xgryf-5, ygryf+5, ygryf+5);   //  przeswit
+
 
   form1.Canvas.Brush.Color := clgray;
-  form1.Canvas.Font.Color := clwhite;
-  form1.Canvas.TextOut(srodek - 20, 20, gryfgilzarozmiar.ToString);  // tekst rozmiar gryfu
-  form1.Canvas.Brush.Color := clgray;                 // kolorek gryfu
-  form1.Canvas.Pen.Width:=10;                         // taka linia grubsza
-  form1.Canvas.Pen.Color:=clgray;                     // kolorek gryfu
-  form1.Canvas.Pen.Style:=PsDash;                     // taka linia przerywana
-  form1.canvas.Ellipse(xgryf, xgryf, ygryf, ygryf);   // kolo gryfu
+  form1.Canvas.Font.Color := clBlack;
+  form1.Canvas.Brush.Color := clNone;                               // kolorek gryfu
+  form1.Canvas.TextOut(srodek - 60,wysSredGilzy-15, 'średnica tulei '+gryfgilzarozmiar.ToString);  // tekst rozmiar gryfu
+  form1.Canvas.Brush.Color := clgray;                                // kolorek gryfu
+  form1.Canvas.Pen.Width:=10;                                        // taka linia grubsza
+  form1.Canvas.Pen.Color:=clgray;                                    // kolorek gryfu
+  form1.Canvas.Pen.Style:=PsDash;                                    // taka linia przerywana
+  form1.canvas.Ellipse(xgryf, xgryf, ygryf, ygryf) ;                // kolo gryfu
+
+
+
+  form1.Canvas.Pen.Width:=1;             // taka linia grubosc 1
+  form1.Canvas.Pen.Style:=PsSolid;       // taka linia ciagla
+  form1.canvas.Pen.color := clLime;     // kolor czarny
+  form1.Canvas.Brush.Color := clLime;
+  form1.Canvas.Line(xfolia, srodek + 80, xfolia, wysPromFoli-10);    // lewa linia foli
+  form1.Canvas.Line(xgryf-3, srodek + 50, xgryf-3, wysPromFoli-10);   // prawa linia foli
+  form1.Canvas.Pen.Width:=1;             // taka linia grubosc 1
+//  form1.Canvas.Line(xfolia+2, wysPromFoli, xgryf-7, wysPromFoli);            // promien foli
+  form1.Canvas.Pen.Width:=1;             // wracam do cienkiej lini dla trujkatow
+ // form1.Canvas.Polygon([Point(xfolia+2,  wysPromFoli), Point(xfolia + 7, wysPromFoli+5),     Point(xfolia + 7, wysPromFoli-5)]);   // lewy trujkacik na koncu lini
+ // form1.Canvas.Polygon([Point(xgryf-7, wysPromFoli), Point(xgryf - 12, wysPromFoli+5),     Point(xgryf - 12, wysPromFoli-5)]);   // prawy trujkacik na koncu lini
+   form1.Canvas.Polygon([Point(xfolia-2,  wysPromFoli), Point(xfolia - 7, wysPromFoli+5),     Point(xfolia -7, wysPromFoli-5)]);   // lewy trujkacik na koncu lini
+  form1.Canvas.Polygon([Point(xgryf+1, wysPromFoli), Point(xgryf + 7, wysPromFoli+5),     Point(xgryf + 7, wysPromFoli-5)]);   // prawy trujkacik na koncu lini
+
+
+  form1.Canvas.Brush.Color := clRed;
+  Form1.Canvas.Font.Color:=clBlack;
+  form1.Canvas.TextOut(xgryf+10, wysPromFoli-12,  ' '+form1.FloatSpinEditFolia.Value.ToString+ ' od brzegu folii do gryfu');
+  form1.Canvas.Pen.Width:=1;             // taka linia grubosc 1
+  form1.Canvas.Pen.Style:=PsDash;                                    // taka linia przerywana
+  form1.canvas.Pen.color := clYellow;     // kolor
+  form1.Canvas.Brush.Color := clRed;
+  form1.Canvas.Font.Color:=clYellow;
+  form1.Canvas.Line(xgryf-4, srodek +50, xgryf-4, wysPromGilzy-10);    // lewa linia
+  form1.Canvas.Line(xgilza, srodek + 50, xgilza, wysPromGilzy-10);   // prawa linia
+  form1.Canvas.Brush.Color := clYellow;
+  form1.Canvas.Polygon([Point(xgilza-4,  wysPromGilzy), Point(xgilza-9, wysPromGilzy-5),Point(xgilza -9, wysPromGilzy+5)]);   // lewy trujkacik na koncu lini
+  form1.Canvas.Polygon([Point(xgryf,   wysPromGilzy), Point(xgryf +5,wysPromGilzy-5),Point(xgryf + 5,wysPromGilzy+5)]);   // prawy trujkacik na koncu lini
+  form1.Canvas.Font.Color := clYellow;
+  form1.Canvas.Brush.Color := clRed;
+  form1.Canvas.TextOut(xgryf+10, wysPromGilzy-10,  form1.SpinEditGilza.Value.ToString+ 'mm od gryfu do brzegu gilzy');  // tekst rozmiar gryfu
 
 
 end;
@@ -381,7 +442,7 @@ end;
 
 procedure TForm1.WybierzZListyHistoria(Sender: TObject);
 begin
-  k:=form1.ComboBoxHistoria.ItemIndex*6;
+   k:=form1.ComboBoxHistoria.ItemIndex*6;
    FloatSpinEditWagaWzorcowego.Value := strtofloat(MemoHistoria.Lines.ValueFromIndex[k]);     // bo linia 0 to jej nazwa czyli string 'ostatnia'
    SpinEditMetryWzorcowego.Value     :=   strtoint(MemoHistoria.Lines.ValueFromIndex[k+1]);
    FloatSpinEditFolia.Value          := strtofloat(MemoHistoria.Lines.ValueFromIndex[k+2]);   // srednica ostatniej miezonej rolki

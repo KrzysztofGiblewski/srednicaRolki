@@ -25,9 +25,9 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="5"/>
-      <MinorVersionNr Value="3"/>
-      <RevisionNr Value="3"/>
-      <BuildNr Value="27"/>
+      <MinorVersionNr Value="4"/>
+      <RevisionNr Value="15"/>
+      <BuildNr Value="32"/>
       <Language Value="0415"/>
       <StringTable CompanyName="KrzysztofGiblewski" LegalCopyright="KrzysztofGiblewski@gmail.com" LegalTrademarks="Krzysztofgiblewski@gmail.com" OriginalFilename="Srednica Rolki" ProductName="SrednicaRolki" ProductVersion="2.3.0.3"/>
     </VersionInfo>

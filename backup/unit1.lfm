@@ -3,13 +3,13 @@ object Form1: TForm1
   Height = 741
   Top = 0
   Width = 1000
-  HorzScrollBar.Page = 1000
-  VertScrollBar.Page = 721
+  HorzScrollBar.Page = 983
+  VertScrollBar.Page = 724
   AutoScroll = True
   BorderIcons = [biMinimize]
   Caption = 'PrzeliczPromień'
   ClientHeight = 724
-  ClientWidth = 1000
+  ClientWidth = 983
   Color = clWhite
   OnActivate = Wczytaj
   OnCreate = Rysuj
@@ -18,9 +18,9 @@ object Form1: TForm1
   LCLVersion = '2.0.6.0'
   Scaled = False
   object Panel1: TPanel
-    Left = 0
+    Left = 5
     Height = 405
-    Top = 300
+    Top = 345
     Width = 1030
     BevelColor = clNone
     BevelOuter = bvNone
@@ -56,7 +56,7 @@ object Form1: TForm1
         '1'
       )
       MaxLength = 160
-      TabOrder = 16
+      TabOrder = 15
       Visible = False
     end
     object Image1: TImage
@@ -640,15 +640,15 @@ object Form1: TForm1
     object Bevel1: TBevel
       Left = 580
       Height = 350
-      Top = 0
+      Top = 3
       Width = 375
       Shape = bsFrame
     end
     object Bevel2: TBevel
-      Left = 585
-      Height = 97
+      Left = 584
+      Height = 90
       Hint = 'To najlepiej przepisać z oryginalnej etykiety'#13#10'średnice trzeba zmierzyć jak rolka '#13#10'jest jeszcze nie ryszona.'
-      Top = 3
+      Top = 15
       Width = 366
       ParentShowHint = False
       Shape = bsFrame
@@ -798,19 +798,11 @@ object Form1: TForm1
         '75'
         '148'
       )
+      OnChange = Rysuj
       OnExit = Rysuj
       ParentFont = False
       TabOrder = 11
       Text = '148'
-    end
-    object ButtonZamknijProgram: TButton
-      Left = 880
-      Height = 25
-      Top = 360
-      Width = 75
-      Caption = 'Zamknij'
-      OnClick = ButtonZamknijProgramClick
-      TabOrder = 14
     end
     object SpinEditMetryWzorcowego: TSpinEdit
       Left = 835
@@ -996,6 +988,7 @@ object Form1: TForm1
       Font.Style = [fsBold]
       MaxValue = 9999
       MinValue = 0
+      OnChange = FloatSpinEditWagaWzorcowegoChange
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
@@ -1020,14 +1013,14 @@ object Form1: TForm1
       TabOrder = 5
       Value = 100
     end
-    object Button1: TButton
+    object ButtonLiczZSrednicy: TButton
       Left = 710
       Height = 25
       Hint = 'liczy mase wałka ze średnicy ściągniętej rolki. '
       Top = 315
       Width = 140
       Caption = 'Licz mase z Średnicy rolki'
-      OnClick = Button1Click
+      OnClick = ButtonLiczZSrednicyClick
       ParentShowHint = False
       ShowHint = True
       TabOrder = 10
@@ -1050,9 +1043,15 @@ object Form1: TForm1
       Left = 905
       Height = 21
       Top = 319
-      Width = 30
+      Width = 31
       Caption = '0 kg'
+      Font.CharSet = EASTEUROPE_CHARSET
+      Font.Color = clBlack
       Font.Height = -16
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
     end
@@ -1073,7 +1072,7 @@ object Form1: TForm1
       DecimalPlaces = 1
       Font.Height = -19
       Increment = 0.5
-      MaxValue = 999999
+      MaxValue = 999999999
       MinValue = 0
       OnChange = Rysuj
       ParentFont = False
@@ -1112,7 +1111,7 @@ object Form1: TForm1
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
-      MaxValue = 999999999
+      MaxValue = 99999999
       OnChange = SpinEditSrednicaWalkaChange
       ParentFont = False
       TabOrder = 2
@@ -1142,7 +1141,6 @@ object Form1: TForm1
       Width = 405
       AutoSelect = False
       ItemHeight = 15
-      OnChange = ComboBoxHistoriaChange
       OnSelect = WybierzZListyHistoria
       Style = csOwnerDrawEditableVariable
       TabOrder = 3
@@ -1155,47 +1153,64 @@ object Form1: TForm1
       Width = 175
       Caption = 'Przelicz masę z innej szerokości'
       OnClick = ButtonPrzeliczZInnejSzeroClick
-      TabOrder = 15
+      TabOrder = 14
     end
-    object Button2: TButton
+    object ButtonPrzepiszWynik: TButton
       Left = 367
       Height = 20
       Top = 188
       Width = 170
       Caption = 'Przepisz wynik do pola Waga'
-      OnClick = Button2Click
-      TabOrder = 17
-    end
-    object Bevel3: TBevel
-      Left = 620
-      Height = 80
-      Top = 195
-      Width = 331
-      Anchors = [akTop, akBottom]
-      Shape = bsTopLine
+      OnClick = ButtonPrzepiszWynikClick
+      TabOrder = 16
     end
     object Bevel4: TBevel
       Left = 620
       Height = 15
       Top = 290
-      Width = 331
+      Width = 336
+      Shape = bsTopLine
+    end
+    object Bevel3: TBevel
+      Left = 620
+      Height = 50
+      Top = 195
+      Width = 335
       Shape = bsTopLine
     end
   end
   object MemoPamiecOstatniego: TMemo
-    Left = 345
+    Left = 350
     Height = 176
-    Top = 545
+    Top = 590
     Width = 40
     TabOrder = 1
     Visible = False
   end
   object MemoBazaFolii: TMemo
-    Left = 430
+    Left = 435
     Height = 160
-    Top = 550
+    Top = 595
     Width = 45
     TabOrder = 2
     Visible = False
+  end
+  object ButtonZamknijProgram: TButton
+    Left = 900
+    Height = 25
+    Top = 5
+    Width = 75
+    Caption = 'Zamknij'
+    OnClick = ButtonZamknijProgramClick
+    TabOrder = 3
+  end
+  object ButtonZamknijProgram1: TButton
+    Left = 885
+    Height = 25
+    Top = 710
+    Width = 75
+    Caption = 'Zamknij'
+    OnClick = ButtonZamknijProgramClick
+    TabOrder = 4
   end
 end
