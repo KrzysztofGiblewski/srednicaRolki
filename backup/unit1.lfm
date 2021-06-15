@@ -2,14 +2,14 @@ object Form1: TForm1
   Left = 13
   Height = 741
   Top = 0
-  Width = 1000
-  HorzScrollBar.Page = 983
+  Width = 1018
+  HorzScrollBar.Page = 1001
   VertScrollBar.Page = 724
   AutoScroll = True
   BorderIcons = [biMinimize]
   Caption = 'PrzeliczPromień'
   ClientHeight = 724
-  ClientWidth = 983
+  ClientWidth = 1001
   Color = clWhite
   OnActivate = Wczytaj
   OnCreate = Rysuj
@@ -62,9 +62,9 @@ object Form1: TForm1
     object Image1: TImage
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Side = asrBottom
-      Left = 0
+      Left = -5
       Height = 465
-      Top = -15
+      Top = 10
       Width = 1030
       Anchors = [akRight, akBottom]
       ParentShowHint = False
@@ -722,9 +722,9 @@ object Form1: TForm1
       Value = 15
     end
     object LabelPoczatek: TLabel
-      Left = 5
+      Left = 10
       Height = 71
-      Top = 160
+      Top = 155
       Width = 87
       Anchors = [akLeft, akBottom]
       Caption = '168'
@@ -988,7 +988,6 @@ object Form1: TForm1
       Font.Style = [fsBold]
       MaxValue = 9999
       MinValue = 0
-      OnChange = FloatSpinEditWagaWzorcowegoChange
       ParentFont = False
       ParentShowHint = False
       ShowHint = True
@@ -1080,10 +1079,10 @@ object Form1: TForm1
       Value = 100
     end
     object ButtonZapamietajHistoria: TButton
-      Left = 390
+      Left = 367
       Height = 25
       Hint = 'Zapisz dane wałka, zapisuje '#13#10'tylko dane z kolorowych pól'
-      Top = 134
+      Top = 135
       Width = 175
       Caption = 'Zapamiętaj rolkę'
       OnClick = ButtonZapamietajHistoriaClick
@@ -1135,10 +1134,10 @@ object Form1: TForm1
       ParentColor = False
     end
     object ComboBoxHistoria: TComboBox
-      Left = 160
+      Left = 185
       Height = 21
       Top = 163
-      Width = 405
+      Width = 380
       AutoSelect = False
       ItemHeight = 15
       OnSelect = WybierzZListyHistoria
@@ -1159,7 +1158,7 @@ object Form1: TForm1
       Left = 367
       Height = 20
       Top = 188
-      Width = 170
+      Width = 175
       Caption = 'Przepisz wynik do pola Waga'
       OnClick = ButtonPrzepiszWynikClick
       TabOrder = 16

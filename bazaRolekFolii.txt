@@ -1,12 +1,4 @@
-pierwsza folia
-100
-200
-druga
-222,22
-2222
-trzecia
-33
-123
-czwarta
-444
-4478
+folia PET-T 830/12
+502,9
+36000
+

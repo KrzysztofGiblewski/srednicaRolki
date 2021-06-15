@@ -71,8 +71,6 @@ type
     procedure ButtonZamknijProgramClick(Sender: TObject);
     procedure ButtonPrzeliczZKiloNaMetryClick(Sender: TObject);
     procedure ButtonPrzeliczZMetrowNaKiloClick(Sender: TObject);
-    procedure FloatSpinEditWagaWzorcowegoChange(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
     procedure Rysuj(Sender: TObject);
     procedure SpinEditSrednicaWalkaChange(Sender: TObject);
     procedure WybierzZListyHistoria(Sender: TObject);
@@ -308,7 +306,7 @@ var
   foliarozmiar, skala: double;
 begin
   skala        :=0.3;     // jeszcze nie zastosowana
-  wysSredFoli  := 10;     // wysokosc lini poziomych
+  wysSredFoli  := 11;     // wysokosc lini poziomych
   wysSredGilzy := 40;     // wysokosc lini poziomych
   wysPromFoli  := 115;     // wysokosc lini poziomych
   wysPromGilzy := 80;    // wysokosc lini poziomych
@@ -399,12 +397,10 @@ begin
   form1.Canvas.Brush.Color := clLime;
   form1.Canvas.Line(xfolia, srodek + 80, xfolia, wysPromFoli-10);    // lewa linia foli
   form1.Canvas.Line(xgryf-3, srodek + 50, xgryf-3, wysPromFoli-10);   // prawa linia foli
-  form1.Canvas.Pen.Width:=1;             // taka linia grubosc 1
-//  form1.Canvas.Line(xfolia+2, wysPromFoli, xgryf-7, wysPromFoli);            // promien foli
-  form1.Canvas.Pen.Width:=1;             // wracam do cienkiej lini dla trujkatow
- // form1.Canvas.Polygon([Point(xfolia+2,  wysPromFoli), Point(xfolia + 7, wysPromFoli+5),     Point(xfolia + 7, wysPromFoli-5)]);   // lewy trujkacik na koncu lini
- // form1.Canvas.Polygon([Point(xgryf-7, wysPromFoli), Point(xgryf - 12, wysPromFoli+5),     Point(xgryf - 12, wysPromFoli-5)]);   // prawy trujkacik na koncu lini
-   form1.Canvas.Polygon([Point(xfolia-2,  wysPromFoli), Point(xfolia - 7, wysPromFoli+5),     Point(xfolia -7, wysPromFoli-5)]);   // lewy trujkacik na koncu lini
+  //form1.Canvas.Pen.Style:=PsDot;                                    // taka linia przerywana
+  //form1.Canvas.Line(xfolia+2, wysPromFoli, xgryf-4, wysPromFoli);            // promien foli
+  //form1.Canvas.Pen.Style:=PsSolid;       // taka linia ciagla
+  form1.Canvas.Polygon([Point(xfolia-2,  wysPromFoli), Point(xfolia - 7, wysPromFoli+5),     Point(xfolia -7, wysPromFoli-5)]);   // lewy trujkacik na koncu lini
   form1.Canvas.Polygon([Point(xgryf+1, wysPromFoli), Point(xgryf + 7, wysPromFoli+5),     Point(xgryf + 7, wysPromFoli-5)]);   // prawy trujkacik na koncu lini
 
 
